@@ -302,6 +302,17 @@
       .gallery-item.wide { grid-column: span 2; }
     }
 
+    /* ─── ВИДЕО ─── */
+    .video-wrap {
+      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+      border-radius: 20px; margin-top: 36px;
+      box-shadow: 0 8px 40px rgba(138,106,154,.2);
+    }
+    .video-wrap iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      border: 0; border-radius: 20px;
+    }
+
     /* ─── TELEGRAM INVITE ─── */
     #tg-invite {
       background: linear-gradient(135deg, #1A1A2E 0%, #16213E 60%, #0F3460 100%);
@@ -487,6 +498,23 @@
   </div>
 </section>
 
+<!-- ════════════════════════ ВИДЕО — ТДТ ════════════════════════ -->
+<section class="section section-purple">
+  <div class="container">
+    <div class="tag tag-purple">Посмотри изнутри</div>
+    <h2>Как проходит танцевально-двигательная терапия</h2>
+    <div class="divider divider-purple"></div>
+    <p style="font-family:sans-serif; font-size:16px; color:var(--muted); max-width:600px; line-height:1.7;">
+      Это не хореография и не урок танца. Это живой разговор с телом — через музыку, движение и ощущения. Смотри.
+    </p>
+    <div class="video-wrap">
+      <iframe src="https://vk.com/video_ext.php?oid=96147967&id=456241653&hd=2"
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════════════ TELEGRAM INVITE ══════════════════════ -->
 <section id="tg-invite">
   <div class="tag tag-purple" style="margin-bottom:24px;">Telegram-канал</div>
@@ -595,7 +623,7 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.372 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z"/></svg>
       ВКонтакте
     </a>
-    <a href="https://vk.me/feyadarya" class="contact-btn contact-btn-max">
+    <a href="https://vk.me/+79233665890" class="contact-btn contact-btn-max">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.5 7h-2.25v5.25h-4.5V9H7.5v7.5h9V9z"/></svg>
       MAX
     </a>
