@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дарья Щеголькова — FreebodyMove</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:  #FAF7F2;
+      --purple: #8A6A9A;
+      --purple-light: #EDE3F3;
+      --purple-dark:  #3D2450;
+      --rose:   #C97A82;
+      --rose-light: #F8ECEC;
+      --gold:   #C9A96E;
+      --text:   #2C2226;
+      --muted:  #7A6A72;
+      --white:  #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Georgia', serif; background: var(--cream); color: var(--text); line-height: 1.75; }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .section-purple { background: var(--purple-light); }
+    .section-rose   { background: var(--rose-light); }
+    .section-dark   { background: var(--purple-dark); }
+
+    .tag {
+      display: inline-block; font-family: sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; padding: 5px 14px;
+      border-radius: 20px; margin-bottom: 18px;
+    }
+    .tag-purple { background: var(--purple); color: var(--white); }
+    .tag-rose   { background: var(--rose);   color: var(--white); }
+    .tag-gold   { background: var(--gold);   color: var(--white); }
+
+    h2 { font-size: clamp(26px, 4vw, 36px); font-weight: normal; line-height: 1.3; margin-bottom: 12px; }
+    .divider { width: 48px; height: 3px; border-radius: 2px; margin: 16px 0 36px; }
+    .divider-purple { background: var(--purple); }
+    .divider-rose   { background: var(--rose); }
+    .divider-gold   { background: var(--gold); }
+
+    .btn {
+      display: inline-block; font-family: sans-serif; font-size: 16px;
+      font-weight: 600; padding: 16px 40px; border-radius: 50px;
+      text-decoration: none; transition: transform .2s, opacity .2s; border: none; cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: .9; }
+    .btn-purple { background: var(--purple); color: var(--white); }
+    .btn-rose   { background: var(--rose);   color: var(--white); }
+    .btn-outline-white { background: transparent; border: 2px solid rgba(255,255,255,.5); color: var(--white); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      background: linear-gradient(150deg, #1A1020 0%, #3D2450 60%, #5C3060 100%);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(201,122,130,.15) 0%, transparent 60%);
+    }
+    .hero-text {
+      padding: 60px 48px 60px 48px;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      font-family: sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(255,255,255,.45); margin-bottom: 28px;
+    }
+    #hero h1 {
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: normal; line-height: 1.15; margin-bottom: 24px;
+    }
+    #hero h1 em { font-style: italic; color: #E8B4B8; }
+    #hero h1 strong { font-weight: normal; color: var(--gold); }
+    .hero-sub {
+      font-size: 18px; color: rgba(255,255,255,.72);
+      font-style: italic; margin-bottom: 40px; line-height: 1.7;
+    }
+    .hero-proof {
+      display: flex; gap: 32px; margin-bottom: 40px; flex-wrap: wrap;
+    }
+    .proof-item { text-align: center; }
+    .proof-num {
+      font-family: sans-serif; font-size: 28px; font-weight: 700;
+      color: var(--white); line-height: 1;
+    }
+    .proof-label {
+      font-family: sans-serif; font-size: 12px;
+      color: rgba(255,255,255,.5); margin-top: 4px;
+    }
+    .hero-photo {
+      height: 100vh; overflow: hidden; position: relative;
+    }
+    .hero-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+    }
+    .hero-photo::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right, #1A1020 0%, transparent 30%);
+    }
+
+    /* ─── ДЛЯ КОГО ─── */
+    .pain-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px; margin-top: 32px;
+    }
+    .pain-card {
+      background: var(--white); border-radius: 12px; padding: 20px 22px;
+      border-left: 4px solid var(--rose); font-size: 15px; line-height: 1.6;
+    }
+
+    /* ─── ТРАНСФОРМАЦИЯ ─── */
+    .transform-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      margin-top: 36px; border-radius: 20px; overflow: hidden;
+    }
+    .transform-col { padding: 36px 32px; }
+    .transform-before { background: #F0EBF5; }
+    .transform-after  { background: var(--purple); color: var(--white); }
+    .transform-label {
+      font-family: sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      margin-bottom: 20px; opacity: .6;
+    }
+    .transform-after .transform-label { color: rgba(255,255,255,.6); }
+    .t-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      margin-bottom: 14px; font-family: sans-serif; font-size: 14px; line-height: 1.5;
+    }
+    .t-item .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      flex-shrink: 0; margin-top: 6px;
+    }
+    .transform-before .dot { background: var(--muted); }
+    .transform-after  .dot { background: rgba(255,255,255,.7); }
+    .transform-after .t-item { color: rgba(255,255,255,.9); }
+
+    /* ─── УСЛУГИ ─── */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px; margin-top: 36px;
+    }
+    .service-card {
+      background: var(--white); border-radius: 20px;
+      padding: 32px 26px; position: relative; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      transition: transform .2s;
+    }
+    .service-card:hover { transform: translateY(-4px); }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .card-purple::before { background: var(--purple); }
+    .card-rose::before   { background: var(--rose); }
+    .card-gold::before   { background: var(--gold); }
+    .service-icon { font-size: 32px; margin-bottom: 16px; }
+    .service-card h3 { font-size: 19px; margin-bottom: 10px; }
+    .service-card p { font-family: sans-serif; font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+    .service-price {
+      font-family: sans-serif; font-size: 15px; font-weight: 700;
+      color: var(--purple);
+    }
+    .card-rose .service-price   { color: var(--rose); }
+    .card-gold .service-price   { color: #A07840; }
+
+    /* ─── ОТЗЫВЫ ─── */
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px; margin-top: 36px;
+    }
+    .review-card {
+      background: var(--white); border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 2px 16px rgba(138,106,154,.1);
+    }
+    .review-text {
+      font-size: 15px; font-style: italic; line-height: 1.7;
+      color: var(--text); margin-bottom: 20px; position: relative;
+    }
+    .review-text::before {
+      content: '«'; font-size: 48px; color: var(--purple-light);
+      position: absolute; top: -12px; left: -8px; font-style: normal;
+      line-height: 1; z-index: 0;
+    }
+    .review-text span { position: relative; z-index: 1; }
+    .review-author {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .review-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--purple-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .review-name { font-family: sans-serif; font-size: 14px; font-weight: 600; }
+    .review-role { font-family: sans-serif; font-size: 12px; color: var(--muted); }
+
+    /* ─── ОБО МНЕ ─── */
+    .about-layout {
+      display: grid; grid-template-columns: 1fr 2fr;
+      gap: 52px; align-items: start;
+    }
+    .about-photo {
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(138,106,154,.2);
+    }
+    .about-photo img { width: 100%; display: block; }
+    .about-text p {
+      font-size: 17px; line-height: 1.8; margin-bottom: 18px;
+      color: rgba(255,255,255,.85);
+    }
+    .about-text p em { color: #E8B4B8; font-style: italic; }
+    .about-facts {
+      list-style: none; margin-top: 24px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .about-facts li {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-family: sans-serif; font-size: 15px; color: rgba(255,255,255,.8);
+    }
+    .about-facts li::before { content: '✦'; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    #about h2 { color: var(--white); }
+
+    /* ─── CTA ─── */
+    #cta {
+      background: linear-gradient(135deg, var(--purple-dark) 0%, #5C3060 100%);
+      text-align: center; padding: 88px 24px;
+      color: var(--white);
+    }
+    #cta h2 { color: var(--white); font-size: clamp(28px, 5vw, 44px); margin-bottom: 16px; }
+    #cta > p { color: rgba(255,255,255,.7); font-size: 18px; margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .contact-grid {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      justify-content: center; margin-bottom: 20px;
+    }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: sans-serif; font-size: 15px; font-weight: 600;
+      padding: 14px 28px; border-radius: 50px;
+      text-decoration: none; transition: transform .2s, opacity .2s;
+      min-width: 190px; justify-content: center;
+    }
+    .contact-btn:hover { transform: translateY(-2px); opacity: .9; }
+    .contact-btn-tg  { background: #229ED9; color: #fff; }
+    .contact-btn-vk  { background: #0077FF; color: #fff; }
+    .contact-btn-max { background: #FF6B35; color: #fff; }
+    .contact-btn-tel { background: rgba(255,255,255,.12); color: #fff; border: 2px solid rgba(255,255,255,.3); }
+    @media (max-width: 500px) {
+      .contact-btn { width: 100%; min-width: unset; }
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #110D18; text-align: center;
+      padding: 28px 24px;
+      font-family: sans-serif; font-size: 13px; color: rgba(255,255,255,.35);
+    }
+    footer a { color: rgba(255,255,255,.45); text-decoration: none; }
+
+    /* ─── ГАЛЕРЕЯ ─── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 36px;
+    }
+    .gallery-item {
+      border-radius: 14px; overflow: hidden;
+      aspect-ratio: 3/4;
+      box-shadow: 0 4px 16px rgba(0,0,0,.1);
+      transition: transform .25s;
+    }
+    .gallery-item:hover { transform: scale(1.02); }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      display: block;
+    }
+    .gallery-item.wide {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+    @media (max-width: 700px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item.wide { grid-column: span 2; }
+    }
+
+    /* ─── TELEGRAM INVITE ─── */
+    #tg-invite {
+      background: linear-gradient(135deg, #1A1A2E 0%, #16213E 60%, #0F3460 100%);
+      padding: 80px 24px; text-align: center; color: var(--white);
+    }
+    #tg-invite h2 { color: var(--white); margin-bottom: 12px; }
+    #tg-invite p { color: rgba(255,255,255,.65); font-size: 17px; max-width: 520px; margin: 0 auto 36px; line-height: 1.7; }
+    .tg-channel-preview {
+      display: inline-flex; align-items: center; gap: 16px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px; padding: 16px 28px;
+      margin-bottom: 28px; text-align: left;
+    }
+    .tg-channel-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--rose));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .tg-channel-name { font-family: sans-serif; font-weight: 700; font-size: 16px; }
+    .tg-channel-sub { font-family: sans-serif; font-size: 13px; color: rgba(255,255,255,.45); margin-top: 3px; }
+    .btn-tg-join {
+      background: #229ED9; color: #fff;
+      font-size: 17px; padding: 16px 44px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 700px) {
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-photo { height: 60vw; }
+      .hero-photo::before { background: linear-gradient(to top, #1A1020 0%, transparent 40%); }
+      .hero-text { padding: 40px 24px; }
+      .transform-grid { grid-template-columns: 1fr; }
+      .about-layout { grid-template-columns: 1fr; }
+      .about-photo { max-width: 280px; }
+      .section { padding: 56px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════ HERO ════════════════════════════ -->
+<section id="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">FreebodyMove · Красноярск</p>
+    <h1>Зову тебя<br>в <em>путешествие</em><br>к <strong>себе</strong></h1>
+    <p class="hero-sub">Через тело — к лёгкости, энергии и ощущению, что ты живёшь по-настоящему</p>
+
+    <div class="hero-proof">
+      <div class="proof-item">
+        <div class="proof-num">4</div>
+        <div class="proof-label">года практики</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">100+</div>
+        <div class="proof-label">участников</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">онлайн<br>и вживую</div>
+        <div class="proof-label">форматы</div>
+      </div>
+    </div>
+
+    <a href="https://t.me/feyaDarya" class="btn btn-rose">Написать мне</a>
+  </div>
+  <div class="hero-photo">
+    <img src="darya.jpg" alt="Дарья Щеголькова" />
+  </div>
+</section>
+
+<!-- ════════════════════════════ ДЛЯ КОГО ════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="tag tag-rose">Это для тебя, если</div>
+    <h2>Узнаёшь себя?</h2>
+    <div class="divider divider-rose"></div>
+    <div class="pain-grid">
+      <div class="pain-card">Постоянная усталость — даже отдых не помогает восстановиться</div>
+      <div class="pain-card">Тело зажато и напряжено, живёшь «в голове» и не слышишь себя</div>
+      <div class="pain-card">Ощущение, что живёшь не свою жизнь — по инерции, не по-настоящему</div>
+      <div class="pain-card">Эмоции либо заблокированы, либо накрывают с головой</div>
+      <div class="pain-card">Нет сил, нет драйва, нет контакта со своей женской энергией</div>
+      <div class="pain-card">Хочется выдохнуть, наполниться и почувствовать себя живой</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ ТРАНСФОРМАЦИЯ ═══════════════════════ -->
+<section class="section section-purple">
+  <div class="container">
+    <div class="tag tag-purple">Что меняется</div>
+    <h2>До и после работы с телом</h2>
+    <div class="divider divider-purple"></div>
+    <div class="transform-grid">
+      <div class="transform-col transform-before">
+        <div class="transform-label">Было</div>
+        <div class="t-item"><div class="dot"></div><span>Тело — как панцирь, всё зажато</span></div>
+        <div class="t-item"><div class="dot"></div><span>Хроническая усталость и тяжесть</span></div>
+        <div class="t-item"><div class="dot"></div><span>Живёшь «из надо», а не «из хочу»</span></div>
+        <div class="t-item"><div class="dot"></div><span>Мысли не останавливаются</span></div>
+        <div class="t-item"><div class="dot"></div><span>Нет удовольствия от жизни</span></div>
+        <div class="t-item"><div class="dot"></div><span>Отношения — на автопилоте</span></div>
+      </div>
+      <div class="transform-col transform-after">
+        <div class="transform-label">Стало</div>
+        <div class="t-item"><div class="dot"></div><span>Лёгкость и свобода в теле</span></div>
+        <div class="t-item"><div class="dot"></div><span>Прилив энергии и жизненных сил</span></div>
+        <div class="t-item"><div class="dot"></div><span>Делаешь из «хочу» — с удовольствием</span></div>
+        <div class="t-item"><div class="dot"></div><span>Мысли успокоились, есть тишина внутри</span></div>
+        <div class="t-item"><div class="dot"></div><span>От всего получаю удовольствие</span></div>
+        <div class="t-item"><div class="dot"></div><span>Вкус к жизни, тепло в отношениях</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ УСЛУГИ ═══════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="tag tag-purple">Как я работаю</div>
+    <h2>Выбери своё направление</h2>
+    <div class="divider divider-purple"></div>
+    <div class="services-grid">
+
+      <div class="service-card card-purple" style="padding:0; overflow:hidden;">
+        <img src="5408980713807222024_121.jpg" alt="Танцевальная терапия" style="width:100%; height:180px; object-fit:cover; object-position:center 15%; display:block;" />
+        <div style="padding:24px 26px 28px;">
+          <div class="service-icon">💃</div>
+          <h3>Танцевально-двигательная терапия</h3>
+          <p>Групповые занятия — освобождаем блоки и зажимы через движение. Это не хореография, а живой разговор с телом. Каждое занятие — новая тема и новое открытие о себе.</p>
+          <div class="service-price">800 ₽ / занятие</div>
+        </div>
+      </div>
+
+      <div class="service-card card-rose">
+        <div class="service-icon">🌸</div>
+        <h3>Индивидуальная работа с запросом</h3>
+        <p>Работаем с твоим конкретным запросом через тело, энергии и считывание. Причинно-следственные связи не всегда очевидны — я работаю не от ума. Онлайн и вживую.</p>
+        <div class="service-price">Индивидуально</div>
+      </div>
+
+      <div class="service-card card-gold">
+        <div class="service-icon">🤲</div>
+        <h3>Массаж</h3>
+        <p>Массаж стоп, запуск лимфы, висцеральный массаж живота. Не просто физическое воздействие — работа с энергетическими потоками тела. Вживую, Красноярск.</p>
+        <div class="service-price">Индивидуально</div>
+      </div>
+
+      <div class="service-card card-purple">
+        <div class="service-icon">🦋</div>
+        <h3>Интенсив «Расправь крылья»</h3>
+        <p>27-дневный онлайн-интенсив: 7 видеоуроков, практики, домашние задания и моя личная обратная связь. Для тех, кто хочет системных изменений в своём темпе.</p>
+        <div class="service-price">от 4 000 ₽</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ ГАЛЕРЕЯ ════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="tag tag-purple">Атмосфера</div>
+    <h2>Ощути пространство</h2>
+    <div class="divider divider-purple"></div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="5408980713807222016_121.jpg" alt="Дарья — расслабление с сиренью" />
+      </div>
+      <div class="gallery-item">
+        <img src="5408980713807222021_121.jpg" alt="Дарья — медитативное состояние" />
+      </div>
+      <div class="gallery-item">
+        <img src="5408980713807222020_121.jpg" alt="Дарья Щеголькова" />
+      </div>
+      <div class="gallery-item">
+        <img src="5408980713807222018_121.jpg" alt="Дарья с сиренью" />
+      </div>
+      <div class="gallery-item wide">
+        <img src="5408980713807222024_121.jpg" alt="Свобода движения" style="object-position: center 20%;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TELEGRAM INVITE ══════════════════════ -->
+<section id="tg-invite">
+  <div class="tag tag-purple" style="margin-bottom:24px;">Telegram-канал</div>
+  <h2>Приглашаю тебя в свой канал</h2>
+  <p>Там я делюсь практиками, движением, своими историями и живой атмосферой того, чем занимаюсь. Каждую неделю — что-то настоящее.</p>
+  <div class="tg-channel-preview">
+    <div class="tg-channel-avatar">🌸</div>
+    <div>
+      <div class="tg-channel-name">Танцевальная терапия ✨</div>
+      <div class="tg-channel-sub">@freebodymove · 158 подписчиков</div>
+    </div>
+  </div>
+  <br>
+  <a href="https://t.me/freebodymove" class="btn btn-tg-join">Подписаться на канал</a>
+</section>
+
+<!-- ═══════════════════════════ ОТЗЫВЫ ═══════════════════════════ -->
+<section class="section section-rose">
+  <div class="container">
+    <div class="tag tag-rose">Отзывы</div>
+    <h2>Что говорят после практик</h2>
+    <div class="divider divider-rose"></div>
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-text">
+          <span>После работы с Дашей почувствовала расслабление, мысли успокоились. Во время работы почувствовала, насколько тело зажато — Даша так и сказала: «тело в панцире». Но в процессе стало раскрываться и пошли слёзы. Через месяц: появилось много энергии и желания действовать 🔥</span>
+        </div>
+        <div class="review-author">
+          <div class="review-avatar">🌸</div>
+          <div>
+            <div class="review-name">Анастасия</div>
+            <div class="review-role">индивидуальная работа</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-text">
+          <span>Я в кайфе! Приготовила стейки — такая вкусная еда получилась, это что-то божественное. Я от всего получаю удовольствие теперь. Вместо конфликта с мужем — спокойствие и тепло.</span>
+        </div>
+        <div class="review-author">
+          <div class="review-avatar">✨</div>
+          <div>
+            <div class="review-name">Алёна Кинсфатор</div>
+            <div class="review-role">групповая практика</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-text">
+          <span>Это был для меня совершенно новый опыт работы с телом. Почувствовала энергию, день протекал энергично и бодро. Глубокие осознания о себе, о своей женственности и внутренних конфликтах.</span>
+        </div>
+        <div class="review-author">
+          <div class="review-avatar">💜</div>
+          <div>
+            <div class="review-name">Ирина Харченко</div>
+            <div class="review-role">практика свободного танца</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ ОБО МНЕ ═══════════════════════════ -->
+<section class="section section-dark" id="about">
+  <div class="container">
+    <div class="tag tag-gold">Обо мне</div>
+    <h2>Дарья Щеголькова</h2>
+    <div class="divider divider-gold"></div>
+    <div class="about-layout">
+      <div class="about-photo">
+        <img src="darya.jpg" alt="Дарья Щеголькова" />
+      </div>
+      <div class="about-text">
+        <p>Энергопрактик, телесный терапевт. Помогаю женщинам восстановить живой контакт с собой — через тело, движение и энергию.</p>
+        <p>Мой путь к этому занял 8 лет. Бизнес-курсы, таро, нумерология, натальные карты — я искала ответ везде. Пока не поняла: <em>только Душа знает, зачем ты пришла в этот мир.</em></p>
+        <p>Однажды я начала танцевать — просто для себя. Не в школе, не по программе. Меня спрашивают: «Где ты так научилась?» Отвечаю: «Нигде. Я несколько лет налаживала контакт со своим телом».</p>
+        <p>На фестивале в Алтае случился прорыв: <em>тело стало сгустком энергии и осознанности</em>. Мысли как вспышки — возникали и гасли. Я была полностью здесь. Это стало моим пазлом — и я начала помогать другим найти своё.</p>
+        <p>Сегодня я работаю со звуком, движением и энергетическими потоками. Помогаю достать бессознательные блоки из телесной памяти — и освободить место для нового.</p>
+        <ul class="about-facts">
+          <li>Танцевально-двигательная терапия — групповые и индивидуальные занятия</li>
+          <li>Работа с телом, энергиями и тонким планом</li>
+          <li>Висцеральный массаж, массаж стоп, запуск лимфы</li>
+          <li>Онлайн-интенсив «Расправь крылья»</li>
+          <li>Красноярск — вживую и онлайн по всему миру</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ CTA ════════════════════════════ -->
+<section id="cta">
+  <h2>Готова начать путешествие к себе?</h2>
+  <p>Выбери удобный способ — напишу, отвечу быстро</p>
+  <div class="contact-grid">
+    <a href="https://t.me/feyaDarya" class="contact-btn contact-btn-tg">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.247l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 13.617l-2.94-.918c-.64-.203-.654-.64.136-.954l11.49-4.43c.533-.194 1.001.133.617.932z"/></svg>
+      Telegram
+    </a>
+    <a href="https://vk.com/feyadarya" class="contact-btn contact-btn-vk">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.372 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z"/></svg>
+      ВКонтакте
+    </a>
+    <a href="https://vk.me/feyadarya" class="contact-btn contact-btn-max">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.5 7h-2.25v5.25h-4.5V9H7.5v7.5h9V9z"/></svg>
+      MAX
+    </a>
+    <a href="tel:+79233665890" class="contact-btn contact-btn-tel">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      +7 923 366-58-90
+    </a>
+  </div>
+  <p style="margin-top:8px; font-family:sans-serif; font-size:13px; color:rgba(255,255,255,.3);">отвечаю быстро</p>
+</section>
+
+<!-- ════════════════════════════ FOOTER ════════════════════════════ -->
+<footer>
+  <p>© 2025 Дарья Щеголькова · FreebodyMove · <a href="https://t.me/freebodymove">Telegram-канал</a> · <a href="https://t.me/feyaDarya">Написать в Telegram</a></p>
+</footer>
+
+</body>
+</html>
