@@ -1,366 +1,696 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Дарья Щеголькова — FreebodyMove</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreebodyMove — Дарья Щеголькова</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=Nunito:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:#FAFAF8; font-family:'Nunito',sans-serif; color:#2A1E35; overflow-x:hidden; }
 
-    :root {
-      --cream:  #FAF7F2;
-      --purple: #8A6A9A;
-      --purple-light: #EDE3F3;
-      --purple-dark:  #3D2450;
-      --rose:   #C97A82;
-      --rose-light: #F8ECEC;
-      --gold:   #C9A96E;
-      --text:   #2C2226;
-      --muted:  #7A6A72;
-      --white:  #FFFFFF;
-    }
+  /* ===== НАВИГАЦИЯ ===== */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:20px 60px;
+    display:flex; justify-content:space-between; align-items:center;
+    background:rgba(250,250,248,0.88);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(200,162,200,0.15);
+  }
+  .nav-logo {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:22px; color:#3D2A48; letter-spacing:0.04em;
+  }
+  .nav-logo span { color:#8A6A9A; }
+  .nav-links { display:flex; gap:40px; align-items:center; }
+  .nav-links a {
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:#4A3558; font-weight:300; text-decoration:none; transition:color 0.2s;
+  }
+  .nav-links a:hover { color:#8A6A9A; }
+  .nav-cta {
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:#FAF7F2; background:#8A6A9A; border:none;
+    padding:12px 28px; border-radius:100px; cursor:pointer;
+    font-family:'Nunito',sans-serif; font-weight:300; transition:background 0.2s;
+  }
+  .nav-cta:hover { background:#7A5A8A; }
 
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Georgia', serif; background: var(--cream); color: var(--text); line-height: 1.75; }
+  /* ===== HERO ===== */
+  .hero {
+    min-height:100vh; padding:120px 60px 80px;
+    display:grid; grid-template-columns:1fr 1fr;
+    align-items:center; gap:40px;
+    position:relative; overflow:hidden;
+    background:linear-gradient(135deg, #3D2450 0%, #2A1638 60%, #3D2058 100%);
+  }
+  .hero::before {
+    content:'';
+    position:absolute; width:700px; height:700px; border-radius:50%;
+    background:radial-gradient(circle, rgba(201,169,110,0.15) 0%, rgba(200,162,200,0.06) 40%, transparent 70%);
+    top:-180px; left:-120px; pointer-events:none;
+  }
+  .hero::after {
+    content:'';
+    position:absolute; width:500px; height:500px; border-radius:50%;
+    background:radial-gradient(circle, rgba(201,122,130,0.10) 0%, transparent 65%);
+    bottom:-150px; right:35%; pointer-events:none;
+  }
+  .hero-content { position:relative; z-index:2; }
+  .hero-tag {
+    font-size:10px; letter-spacing:0.32em; text-transform:uppercase;
+    color:#E8B4C8; margin-bottom:40px; font-weight:300;
+  }
+  .hero h1 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:68px; line-height:1.08; color:#F5EEF8; margin-bottom:28px;
+  }
+  .hero h1 em { color:#C8A2C8; font-style:italic; }
+  .hero-sub {
+    font-weight:400; font-size:17px; line-height:1.75;
+    color:rgba(235,220,245,0.85); max-width:420px; margin-bottom:36px;
+  }
+  .hero-proof {
+    display:flex; gap:36px; margin-bottom:44px; flex-wrap:wrap;
+  }
+  .proof-item { text-align:center; }
+  .proof-num {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+    font-size:40px; color:#C8A2C8; line-height:1;
+  }
+  .proof-label {
+    font-size:11px; color:rgba(200,162,200,0.65); font-weight:300; margin-top:4px;
+    letter-spacing:0.06em;
+  }
+  .btn-row { display:flex; gap:16px; flex-wrap:wrap; }
+  .btn-main {
+    font-weight:300; font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+    color:#FAF7F2; background:#8A6A9A; border:none;
+    padding:18px 48px; border-radius:100px; cursor:pointer;
+    font-family:'Nunito',sans-serif; transition:background 0.2s;
+    text-decoration:none; display:inline-block;
+  }
+  .btn-main:hover { background:#7A5A8A; }
+  .btn-ghost {
+    font-weight:300; font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+    color:#E8B4C8; background:transparent;
+    border:1.5px solid rgba(232,180,200,0.45);
+    padding:18px 40px; border-radius:100px; cursor:pointer;
+    font-family:'Nunito',sans-serif; transition:border-color 0.2s;
+    text-decoration:none; display:inline-block;
+  }
+  .btn-ghost:hover { border-color:#E8B4C8; }
+  .hero-floral {
+    position:relative; z-index:2;
+    display:flex; justify-content:center; align-items:flex-start;
+  }
+  .hero-photo {
+    width:100%; max-width:460px;
+    border-radius:32px 32px 80px 32px;
+    object-fit:cover;
+    box-shadow:0 24px 64px rgba(138,106,154,0.28), 0 8px 24px rgba(201,122,130,0.12);
+    display:block; position:relative; z-index:2;
+  }
+  /* Акварельная иллюстрация — фоновый декор секции "Для кого" */
+  .for-you-watercolor {
+    position:absolute; right:-40px; top:50%;
+    transform:translateY(-50%);
+    width:420px; z-index:0;
+    opacity:0.28;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+  }
+  .hero-botanical-accent {
+    position:absolute; top:-30px; right:-20px;
+    width:180px; opacity:0.55;
+    mix-blend-mode:multiply; pointer-events:none;
+  }
 
-    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
-    .section { padding: 80px 0; }
-    .section-purple { background: var(--purple-light); }
-    .section-rose   { background: var(--rose-light); }
-    .section-dark   { background: var(--purple-dark); }
+  /* ===== SECTION HELPERS ===== */
+  .section-eyebrow {
+    font-size:10px; letter-spacing:0.32em; text-transform:uppercase;
+    color:#8A6A9A; margin-bottom:16px; font-weight:300;
+  }
+  .section-divider {
+    width:40px; height:2px; background:#C8A2C8; border-radius:2px;
+    margin:0 0 40px;
+  }
 
-    .tag {
-      display: inline-block; font-family: sans-serif;
-      font-size: 11px; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; padding: 5px 14px;
-      border-radius: 20px; margin-bottom: 18px;
-    }
-    .tag-purple { background: var(--purple); color: var(--white); }
-    .tag-rose   { background: var(--rose);   color: var(--white); }
-    .tag-gold   { background: var(--gold);   color: var(--white); }
+  /* ===== БЛОК "ЭТО ПРО ТЕБЯ" ===== */
+  .for-you {
+    background:linear-gradient(135deg, #EDE6F8 0%, #F8ECF6 100%);
+    padding:100px 60px; position:relative; overflow:hidden;
+  }
+  .for-you::after {
+    content:''; position:absolute; right:-60px; bottom:-60px;
+    width:320px; height:320px; border-radius:50%;
+    background:radial-gradient(circle, rgba(201,122,130,0.10) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .for-you-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;
+  }
+  .for-you h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:32px;
+  }
+  .for-you p {
+    font-weight:400; font-size:16px; line-height:1.8; color:#4A3558; margin-bottom:24px;
+  }
+  .pain-list { list-style:none; display:flex; flex-direction:column; gap:14px; }
+  .pain-list li {
+    font-weight:400; font-size:15px; line-height:1.6; color:#3D2A48;
+    background:#fff; border-radius:12px; padding:16px 20px;
+    border-left:3px solid #C8A2C8;
+  }
 
-    h2 { font-size: clamp(26px, 4vw, 36px); font-weight: normal; line-height: 1.3; margin-bottom: 12px; }
-    .divider { width: 48px; height: 3px; border-radius: 2px; margin: 16px 0 36px; }
-    .divider-purple { background: var(--purple); }
-    .divider-rose   { background: var(--rose); }
-    .divider-gold   { background: var(--gold); }
+  /* ===== ТРАНСФОРМАЦИЯ ===== */
+  .transform {
+    background:#FAFAF8; padding:100px 60px;
+  }
+  .transform h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:8px;
+  }
+  .transform-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:16px;
+    border-radius:24px; overflow:hidden;
+  }
+  .transform-col { padding:40px 36px; }
+  .transform-before { background:#F0EBF8; }
+  .transform-after  { background:#8A6A9A; color:#fff; }
+  .transform-label {
+    font-size:10px; font-weight:300; letter-spacing:0.22em; text-transform:uppercase;
+    margin-bottom:24px; color:#9A7AAA;
+  }
+  .transform-after .transform-label { color:rgba(255,255,255,0.55); }
+  .t-item {
+    display:flex; gap:12px; align-items:flex-start;
+    margin-bottom:14px; font-weight:400; font-size:15px; line-height:1.55;
+  }
+  .t-dot {
+    width:6px; height:6px; border-radius:50%;
+    flex-shrink:0; margin-top:7px; background:#C8A2C8;
+  }
+  .transform-after .t-item { color:rgba(255,255,255,0.9); }
+  .transform-after .t-dot { background:rgba(255,255,255,0.55); }
 
-    .btn {
-      display: inline-block; font-family: sans-serif; font-size: 16px;
-      font-weight: 600; padding: 16px 40px; border-radius: 50px;
-      text-decoration: none; transition: transform .2s, opacity .2s; border: none; cursor: pointer;
-    }
-    .btn:hover { transform: translateY(-2px); opacity: .9; }
-    .btn-purple { background: var(--purple); color: var(--white); }
-    .btn-rose   { background: var(--rose);   color: var(--white); }
-    .btn-outline-white { background: transparent; border: 2px solid rgba(255,255,255,.5); color: var(--white); }
+  /* ===== МЕТОД ===== */
+  .method {
+    background:linear-gradient(135deg, #EDE6F8 0%, #F8ECF6 100%);
+    padding:100px 60px;
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:80px; align-items:center;
+  }
+  .method-img { position:relative; }
+  .method-photo {
+    width:100%; max-width:460px;
+    border-radius:80px 32px 32px 32px;
+    object-fit:cover;
+    box-shadow:0 20px 56px rgba(138,106,154,0.22), 0 6px 20px rgba(201,162,201,0.15);
+    display:block;
+  }
+  .method-botanical {
+    position:absolute; bottom:-40px; right:-30px;
+    width:160px; opacity:0.60;
+    mix-blend-mode:multiply; pointer-events:none;
+  }
+  .method-text h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:32px;
+  }
+  .method-text p {
+    font-weight:400; font-size:16px; line-height:1.8; color:#4A3558; margin-bottom:20px;
+  }
+  .quote-pull {
+    border-left:3px solid #C9A96E; padding-left:24px; margin:40px 0;
+  }
+  .quote-pull p {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:24px; line-height:1.45; color:#3D2A48; margin-bottom:0;
+  }
 
-    /* ─── HERO ─── */
-    #hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      background: linear-gradient(150deg, #1A1020 0%, #3D2450 60%, #5C3060 100%);
-      color: var(--white);
-      position: relative;
-      overflow: hidden;
-    }
-    #hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 70% 50%, rgba(201,122,130,.15) 0%, transparent 60%);
-    }
-    .hero-text {
-      padding: 60px 48px 60px 48px;
-      position: relative; z-index: 1;
-    }
-    .hero-eyebrow {
-      font-family: sans-serif; font-size: 11px; font-weight: 700;
-      letter-spacing: .2em; text-transform: uppercase;
-      color: rgba(255,255,255,.45); margin-bottom: 28px;
-    }
-    #hero h1 {
-      font-size: clamp(36px, 5vw, 58px);
-      font-weight: normal; line-height: 1.15; margin-bottom: 24px;
-    }
-    #hero h1 em { font-style: italic; color: #E8B4B8; }
-    #hero h1 strong { font-weight: normal; color: var(--gold); }
-    .hero-sub {
-      font-size: 18px; color: rgba(255,255,255,.72);
-      font-style: italic; margin-bottom: 40px; line-height: 1.7;
-    }
-    .hero-proof {
-      display: flex; gap: 32px; margin-bottom: 40px; flex-wrap: wrap;
-    }
-    .proof-item { text-align: center; }
-    .proof-num {
-      font-family: sans-serif; font-size: 28px; font-weight: 700;
-      color: var(--white); line-height: 1;
-    }
-    .proof-label {
-      font-family: sans-serif; font-size: 12px;
-      color: rgba(255,255,255,.5); margin-top: 4px;
-    }
-    .hero-photo {
-      height: 100vh; overflow: hidden; position: relative;
-    }
-    .hero-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: top center;
-    }
-    .hero-photo::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(to right, #1A1020 0%, transparent 30%);
-    }
+  /* ===== УСЛУГИ ===== */
+  .practices {
+    background:#FAFAF8; padding:100px 60px;
+  }
+  .practices h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:8px;
+  }
+  .practices-intro {
+    font-weight:300; font-size:16px; color:#5A4860;
+    margin-bottom:52px; max-width:560px; line-height:1.7;
+  }
+  .card-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .card {
+    background:#fff; border-radius:28px; padding:0; overflow:hidden;
+    transition:transform 0.2s, box-shadow 0.2s;
+    box-shadow:0 4px 20px rgba(138,106,154,0.07);
+  }
+  .card:hover {
+    transform:translateY(-4px);
+    box-shadow:0 12px 40px rgba(138,106,154,0.14);
+  }
+  .card-cover {
+    width:100%; height:180px; object-fit:cover; object-position:center 20%;
+    display:block;
+  }
+  .card-body { padding:32px 28px; }
+  .card-icon { font-size:28px; margin-bottom:14px; }
+  .card-stripe { height:3px; border-radius:2px; margin-bottom:20px; }
+  .card-tag {
+    font-size:10px; letter-spacing:0.2em; text-transform:uppercase;
+    margin-bottom:12px; font-weight:300;
+  }
+  .card h3 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:24px; color:#3D2A48; line-height:1.25; margin-bottom:12px;
+  }
+  .card p {
+    font-size:14px; line-height:1.7; color:#3D2A48; font-weight:400; margin-bottom:20px;
+  }
+  .card-price {
+    font-size:15px; font-weight:400; letter-spacing:0.03em;
+  }
 
-    /* ─── ДЛЯ КОГО ─── */
-    .pain-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px; margin-top: 32px;
-    }
-    .pain-card {
-      background: var(--white); border-radius: 12px; padding: 20px 22px;
-      border-left: 4px solid var(--rose); font-size: 15px; line-height: 1.6;
-    }
+  /* ===== ГАЛЕРЕЯ ===== */
+  .gallery {
+    background:linear-gradient(135deg, #F5EFFE 0%, #FEF0F6 100%);
+    padding:100px 60px;
+  }
+  .gallery h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:8px;
+  }
+  .gallery-grid {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:12px; margin-top:16px;
+  }
+  .gallery-item {
+    border-radius:20px; overflow:hidden;
+    aspect-ratio:3/4;
+    box-shadow:0 4px 20px rgba(138,106,154,0.12);
+    transition:transform 0.25s;
+  }
+  .gallery-item:hover { transform:scale(1.02); }
+  .gallery-item img {
+    width:100%; height:100%;
+    object-fit:cover; object-position:top center; display:block;
+  }
+  .gallery-item.wide {
+    grid-column:span 2; aspect-ratio:16/9;
+  }
 
-    /* ─── ТРАНСФОРМАЦИЯ ─── */
-    .transform-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-      margin-top: 36px; border-radius: 20px; overflow: hidden;
-    }
-    .transform-col { padding: 36px 32px; }
-    .transform-before { background: #F0EBF5; }
-    .transform-after  { background: var(--purple); color: var(--white); }
-    .transform-label {
-      font-family: sans-serif; font-size: 11px; font-weight: 700;
-      letter-spacing: .15em; text-transform: uppercase;
-      margin-bottom: 20px; opacity: .6;
-    }
-    .transform-after .transform-label { color: rgba(255,255,255,.6); }
-    .t-item {
-      display: flex; gap: 12px; align-items: flex-start;
-      margin-bottom: 14px; font-family: sans-serif; font-size: 14px; line-height: 1.5;
-    }
-    .t-item .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      flex-shrink: 0; margin-top: 6px;
-    }
-    .transform-before .dot { background: var(--muted); }
-    .transform-after  .dot { background: rgba(255,255,255,.7); }
-    .transform-after .t-item { color: rgba(255,255,255,.9); }
+  /* ===== ВИДЕО ===== */
+  .video-section {
+    background:#FAFAF8; padding:100px 60px;
+  }
+  .video-section h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:8px;
+  }
+  .video-section p {
+    font-weight:300; font-size:16px; color:#5A4860;
+    max-width:600px; line-height:1.7; margin-bottom:36px;
+  }
+  .video-poster {
+    background:linear-gradient(135deg, #F0EBF8 0%, #F8ECF6 100%);
+    border-radius:24px; padding:60px 32px; text-align:center;
+    position:relative; overflow:hidden;
+    box-shadow:0 8px 40px rgba(138,106,154,0.14);
+    text-decoration:none; display:block;
+    transition:transform 0.2s, box-shadow 0.2s;
+    border:1px solid rgba(200,162,200,0.25);
+  }
+  .video-poster:hover {
+    transform:translateY(-4px);
+    box-shadow:0 16px 48px rgba(138,106,154,0.22);
+  }
+  .video-poster::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse at 50% 50%, rgba(201,122,130,0.08) 0%, transparent 70%);
+  }
+  .play-btn {
+    width:72px; height:72px; border-radius:50%;
+    background:rgba(138,106,154,0.15); border:2px solid rgba(138,106,154,0.40);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 20px; position:relative; z-index:1; font-size:26px;
+    color:#8A6A9A;
+  }
+  .video-label {
+    font-size:10px; letter-spacing:0.22em; text-transform:uppercase;
+    color:#9A7AAA; margin-bottom:10px; position:relative; z-index:1; font-weight:300;
+  }
+  .video-title {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+    font-size:22px; color:#3D2A48; position:relative; z-index:1;
+  }
+  .video-hint {
+    font-size:13px; color:#9A7AAA; margin-top:8px; position:relative; z-index:1; font-weight:300;
+  }
 
-    /* ─── УСЛУГИ ─── */
-    .services-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px; margin-top: 36px;
-    }
-    .service-card {
-      background: var(--white); border-radius: 20px;
-      padding: 32px 26px; position: relative; overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,.06);
-      transition: transform .2s;
-    }
-    .service-card:hover { transform: translateY(-4px); }
-    .service-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 4px;
-    }
-    .card-purple::before { background: var(--purple); }
-    .card-rose::before   { background: var(--rose); }
-    .card-gold::before   { background: var(--gold); }
-    .service-icon { font-size: 32px; margin-bottom: 16px; }
-    .service-card h3 { font-size: 19px; margin-bottom: 10px; }
-    .service-card p { font-family: sans-serif; font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
-    .service-price {
-      font-family: sans-serif; font-size: 15px; font-weight: 700;
-      color: var(--purple);
-    }
-    .card-rose .service-price   { color: var(--rose); }
-    .card-gold .service-price   { color: #A07840; }
+  /* ===== TELEGRAM ===== */
+  .tg-section {
+    background:linear-gradient(135deg, #EDE6F8 0%, #E8ECF8 100%);
+    padding:100px 60px; text-align:center;
+  }
+  .tg-section h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:16px;
+  }
+  .tg-section > p {
+    font-weight:300; font-size:17px; color:#5A4860;
+    max-width:520px; margin:0 auto 44px; line-height:1.7;
+  }
+  .tg-preview {
+    display:inline-flex; align-items:center; gap:16px;
+    background:rgba(255,255,255,0.70); border:1px solid rgba(200,162,200,0.30);
+    border-radius:20px; padding:18px 32px;
+    margin-bottom:32px; text-align:left;
+    box-shadow:0 4px 16px rgba(138,106,154,0.08);
+  }
+  .tg-avatar {
+    width:52px; height:52px; border-radius:50%;
+    background:linear-gradient(135deg, #C8A2C8, #C97A82);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; flex-shrink:0;
+  }
+  .tg-name { font-size:15px; font-weight:400; color:#3D2A48; }
+  .tg-sub { font-size:12px; color:#9A7AAA; font-weight:300; margin-top:3px; }
+  .btn-tg {
+    background:#229ED9; color:#fff; font-family:'Nunito',sans-serif;
+    font-weight:300; font-size:14px; letter-spacing:0.12em;
+    padding:16px 44px; border-radius:100px; border:none;
+    cursor:pointer; text-decoration:none; display:inline-block;
+    transition:opacity 0.2s;
+  }
+  .btn-tg:hover { opacity:0.88; }
 
-    /* ─── ОТЗЫВЫ ─── */
-    .reviews-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px; margin-top: 36px;
-    }
-    .review-card {
-      background: var(--white); border-radius: 16px;
-      padding: 28px 24px;
-      box-shadow: 0 2px 16px rgba(138,106,154,.1);
-    }
-    .review-text {
-      font-size: 15px; font-style: italic; line-height: 1.7;
-      color: var(--text); margin-bottom: 20px; position: relative;
-    }
-    .review-text::before {
-      content: '«'; font-size: 48px; color: var(--purple-light);
-      position: absolute; top: -12px; left: -8px; font-style: normal;
-      line-height: 1; z-index: 0;
-    }
-    .review-text span { position: relative; z-index: 1; }
-    .review-author {
-      display: flex; align-items: center; gap: 12px;
-    }
-    .review-avatar {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: var(--purple-light);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
-    .review-name { font-family: sans-serif; font-size: 14px; font-weight: 600; }
-    .review-role { font-family: sans-serif; font-size: 12px; color: var(--muted); }
+  /* ===== ОТЗЫВЫ ===== */
+  .reviews {
+    background:#FAFAF8; padding:100px 60px;
+  }
+  .reviews h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:8px;
+  }
+  .reviews-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:16px;
+    /* 6 карточек = 2 ряда по 3 */
+  }
+  .review-card {
+    background:#fff; border-radius:24px; padding:32px 28px;
+    box-shadow:0 4px 20px rgba(138,106,154,0.08);
+  }
+  .review-text {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:400;
+    font-size:17px; line-height:1.7; color:#2A1E35; margin-bottom:24px;
+    position:relative; padding-top:20px;
+  }
+  .review-text::before {
+    content:'«'; font-size:52px; color:#F0EBF8;
+    position:absolute; top:-8px; left:-4px;
+    font-family:'Cormorant Garamond',serif; font-style:italic; line-height:1;
+  }
+  .review-text span { position:relative; z-index:1; }
+  .review-author { display:flex; align-items:center; gap:12px; }
+  .review-avatar {
+    width:40px; height:40px; border-radius:50%;
+    background:linear-gradient(135deg, #F0EBF8, #FEF0F6);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; flex-shrink:0;
+    border:1.5px solid rgba(200,162,200,0.30);
+  }
+  .review-name { font-size:14px; font-weight:400; color:#3D2A48; }
+  .review-role { font-size:12px; color:#9A7AAA; font-weight:300; margin-top:2px; }
 
-    /* ─── ОБО МНЕ ─── */
-    .about-layout {
-      display: grid; grid-template-columns: 1fr 2fr;
-      gap: 52px; align-items: start;
-    }
-    .about-photo {
-      border-radius: 20px; overflow: hidden;
-      box-shadow: 0 8px 32px rgba(138,106,154,.2);
-    }
-    .about-photo img { width: 100%; display: block; }
-    .about-text p {
-      font-size: 17px; line-height: 1.8; margin-bottom: 18px;
-      color: rgba(255,255,255,.85);
-    }
-    .about-text p em { color: #E8B4B8; font-style: italic; }
-    .about-facts {
-      list-style: none; margin-top: 24px;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .about-facts li {
-      display: flex; gap: 10px; align-items: flex-start;
-      font-family: sans-serif; font-size: 15px; color: rgba(255,255,255,.8);
-    }
-    .about-facts li::before { content: '✦'; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-    #about h2 { color: var(--white); }
+  /* ===== О ДАРЬЕ ===== */
+  .about {
+    background:linear-gradient(135deg, #F5EFFE 0%, #FEF0F6 100%);
+    padding:100px 60px;
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:80px; align-items:start;
+  }
+  .about-text h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:32px;
+  }
+  .about-text p {
+    font-weight:300; font-size:16px; line-height:1.8; color:#5A4860; margin-bottom:18px;
+  }
+  .about-text p em { color:#C97A82; font-style:italic; }
+  .about-facts { list-style:none; margin-top:28px; display:flex; flex-direction:column; gap:10px; }
+  .about-facts li {
+    display:flex; gap:10px; align-items:flex-start;
+    font-weight:400; font-size:15px; color:#3D2A48;
+  }
+  .about-facts li::before { content:'✦'; color:#C9A96E; flex-shrink:0; margin-top:2px; }
+  .stats { display:flex; gap:48px; margin-top:36px; flex-wrap:wrap; }
+  .stat-item { display:flex; flex-direction:column; gap:6px; }
+  .stat-num {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+    font-size:48px; color:#8A6A9A; line-height:1;
+  }
+  .stat-label { font-size:13px; color:#5A4860; font-weight:300; line-height:1.4; }
+  .about-floral { display:flex; justify-content:center; position:relative; }
+  .about-floral::before {
+    content:''; position:absolute; width:420px; height:420px; border-radius:50%;
+    background:radial-gradient(circle, rgba(200,162,200,0.14) 0%, transparent 70%);
+    top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none;
+  }
+  .about-photo {
+    width:100%; max-width:420px; position:relative; z-index:1;
+    border-radius:32px 80px 32px 32px;
+    object-fit:cover;
+    box-shadow:0 20px 56px rgba(138,106,154,0.24), 0 6px 20px rgba(201,122,130,0.12);
+    display:block;
+  }
+  .about-botanical {
+    position:absolute; top:-30px; left:-20px;
+    width:140px; opacity:0.55; mix-blend-mode:multiply; pointer-events:none; z-index:2;
+  }
 
-    /* ─── CTA ─── */
-    #cta {
-      background: linear-gradient(135deg, var(--purple-dark) 0%, #5C3060 100%);
-      text-align: center; padding: 88px 24px;
-      color: var(--white);
-    }
-    #cta h2 { color: var(--white); font-size: clamp(28px, 5vw, 44px); margin-bottom: 16px; }
-    #cta > p { color: rgba(255,255,255,.7); font-size: 18px; margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto; }
-    .contact-grid {
-      display: flex; flex-wrap: wrap; gap: 16px;
-      justify-content: center; margin-bottom: 20px;
-    }
-    .contact-btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: sans-serif; font-size: 15px; font-weight: 600;
-      padding: 14px 28px; border-radius: 50px;
-      text-decoration: none; transition: transform .2s, opacity .2s;
-      min-width: 190px; justify-content: center;
-    }
-    .contact-btn:hover { transform: translateY(-2px); opacity: .9; }
-    .contact-btn-tg  { background: #229ED9; color: #fff; }
-    .contact-btn-vk  { background: #0077FF; color: #fff; }
-    .contact-btn-max { background: #FF6B35; color: #fff; }
-    .contact-btn-tel { background: rgba(255,255,255,.12); color: #fff; border: 2px solid rgba(255,255,255,.3); }
-    @media (max-width: 500px) {
-      .contact-btn { width: 100%; min-width: unset; }
-    }
+  /* ===== FREEDOM STRIP ===== */
+  .freedom-strip {
+    position:relative; overflow:hidden; height:680px;
+    display:flex; align-items:flex-end; justify-content:flex-start;
+  }
+  .freedom-photo {
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:50% 18%;
+  }
+  .freedom-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to right, rgba(245,239,254,0.65) 0%, rgba(250,250,248,0.05) 45%, rgba(254,240,246,0.40) 100%);
+  }
+  .freedom-caption {
+    position:relative; z-index:2; padding:48px 72px;
+  }
+  .freedom-tag {
+    font-size:10px; letter-spacing:0.32em; text-transform:uppercase;
+    color:#8A6A9A; font-weight:300; margin-bottom:12px;
+  }
+  .freedom-line {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+    font-size:32px; line-height:1.3; color:#3D2A48;
+    text-shadow:0 2px 24px rgba(250,247,242,0.9);
+    max-width:380px;
+  }
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: #110D18; text-align: center;
-      padding: 28px 24px;
-      font-family: sans-serif; font-size: 13px; color: rgba(255,255,255,.35);
-    }
-    footer a { color: rgba(255,255,255,.45); text-decoration: none; }
+  /* ===== КАРТОЧКА ВИДЕО ===== */
+  .card-video-preview {
+    display:flex; align-items:center; gap:16px;
+    background:linear-gradient(135deg, #F0EBF8 0%, #F8ECF6 100%);
+    border-radius:16px; padding:20px 22px; margin-bottom:24px;
+    text-decoration:none; transition:background 0.2s;
+    border:1px solid rgba(200,162,200,0.25);
+  }
+  .card-video-preview:hover { background:linear-gradient(135deg, #E8E0F4 0%, #F4E8F4 100%); }
+  .card-play-icon {
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(138,106,154,0.15); border:1.5px solid rgba(138,106,154,0.35);
+    display:flex; align-items:center; justify-content:center;
+    color:#8A6A9A; font-size:16px; flex-shrink:0;
+  }
+  .card-video-text { font-size:14px; font-weight:300; color:#5A4860; line-height:1.4; }
+  .card-video-hint { font-size:11px; color:#9A7AAA; margin-top:3px; letter-spacing:0.06em; }
 
-    /* ─── ГАЛЕРЕЯ ─── */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 36px;
-    }
-    .gallery-item {
-      border-radius: 14px; overflow: hidden;
-      aspect-ratio: 3/4;
-      box-shadow: 0 4px 16px rgba(0,0,0,.1);
-      transition: transform .25s;
-    }
-    .gallery-item:hover { transform: scale(1.02); }
-    .gallery-item img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: top center;
-      display: block;
-    }
-    .gallery-item.wide {
-      grid-column: span 2;
-      aspect-ratio: 16/9;
-    }
-    @media (max-width: 700px) {
-      .gallery-grid { grid-template-columns: 1fr 1fr; }
-      .gallery-item.wide { grid-column: span 2; }
-    }
+  /* ===== БОТАНИЧЕСКИЕ ОКАНТОВКИ ===== */
+  .for-you { position:relative; overflow:hidden; }
+  .section-floral-tr {
+    position:absolute; top:-20px; right:-20px;
+    width:220px; opacity:0.40; mix-blend-mode:multiply; pointer-events:none;
+  }
+  .section-floral-bl {
+    position:absolute; bottom:-30px; left:-20px;
+    width:180px; opacity:0.35; mix-blend-mode:multiply; pointer-events:none;
+    transform:scaleX(-1) rotate(20deg);
+  }
+  .transform { position:relative; overflow:hidden; }
+  .transform-floral-tr {
+    position:absolute; top:-10px; right:-10px;
+    width:200px; opacity:0.38; mix-blend-mode:multiply; pointer-events:none;
+  }
+  .reviews { position:relative; overflow:hidden; }
+  .reviews-floral-tl {
+    position:absolute; top:-20px; left:-10px;
+    width:180px; opacity:0.35; mix-blend-mode:multiply; pointer-events:none;
+    transform:scaleX(-1);
+  }
+  .reviews-floral-br {
+    position:absolute; bottom:-20px; right:-10px;
+    width:160px; opacity:0.32; mix-blend-mode:multiply; pointer-events:none;
+    transform:rotate(180deg);
+  }
 
-    /* ─── ВИДЕО ─── */
-    .video-wrap {
-      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
-      border-radius: 20px; margin-top: 36px;
-      box-shadow: 0 8px 40px rgba(138,106,154,.2);
-    }
-    .video-wrap iframe {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      border: 0; border-radius: 20px;
-    }
+  /* ===== INLINE SVG БОТАНИКА ===== */
+  .botanical-svg { position:absolute; pointer-events:none; overflow:visible; }
+  .botanical-svg-tr { top:0; right:0; width:280px; z-index:1; }
+  .botanical-svg-tl { top:0; left:0; width:240px; z-index:1; transform:scaleX(-1); }
+  .botanical-svg-br { bottom:0; right:0; width:240px; z-index:1; transform:rotate(180deg); }
+  .botanical-svg-bl { bottom:0; left:0; width:210px; z-index:1; transform:scaleX(-1) rotate(180deg); }
+  .meadow-bg-svg {
+    position:absolute; inset:0; width:100%; height:100%;
+    pointer-events:none; opacity:0.18; mix-blend-mode:multiply;
+  }
+  /* контент поверх декора */
+  .for-you .section-eyebrow, .for-you .section-divider, .for-you .for-you-grid { position:relative; z-index:2; }
+  .transform .section-eyebrow, .transform .section-divider, .transform h2, .transform .transform-grid { position:relative; z-index:2; }
+  .practices .section-eyebrow, .practices .section-divider, .practices h2, .practices .practices-intro, .practices .card-grid { position:relative; z-index:2; }
+  .reviews .section-eyebrow, .reviews .section-divider, .reviews h2, .reviews .reviews-grid { position:relative; z-index:2; }
+  /* Акварельные иконки карточек */
+  .card-icon { width:100px; height:100px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; }
+  .card-icon img { width:100px; height:100px; object-fit:contain; border-radius:0; transition: filter 0.35s ease; }
+  /* Neon glow — по цвету карточки */
+  .card:nth-child(1) .card-icon img {
+    filter: drop-shadow(0 0 8px rgba(200,162,200,0.7)) drop-shadow(0 0 20px rgba(138,106,154,0.45));
+  }
+  .card:nth-child(2) .card-icon img {
+    filter: drop-shadow(0 0 8px rgba(240,192,200,0.7)) drop-shadow(0 0 20px rgba(201,122,130,0.45));
+  }
+  .card:nth-child(3) .card-icon img {
+    filter: drop-shadow(0 0 8px rgba(240,216,154,0.75)) drop-shadow(0 0 20px rgba(201,169,110,0.55));
+  }
+  .card:nth-child(4) .card-icon img {
+    filter: drop-shadow(0 0 8px rgba(200,162,200,0.7)) drop-shadow(0 0 20px rgba(201,122,130,0.45));
+  }
+  .card:hover .card-icon img {
+    filter: drop-shadow(0 0 14px rgba(200,162,200,0.95)) drop-shadow(0 0 32px rgba(138,106,154,0.75)) !important;
+  }
 
-    /* ─── TELEGRAM INVITE ─── */
-    #tg-invite {
-      background: linear-gradient(135deg, #1A1A2E 0%, #16213E 60%, #0F3460 100%);
-      padding: 80px 24px; text-align: center; color: var(--white);
-    }
-    #tg-invite h2 { color: var(--white); margin-bottom: 12px; }
-    #tg-invite p { color: rgba(255,255,255,.65); font-size: 17px; max-width: 520px; margin: 0 auto 36px; line-height: 1.7; }
-    .tg-channel-preview {
-      display: inline-flex; align-items: center; gap: 16px;
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 16px 28px;
-      margin-bottom: 28px; text-align: left;
-    }
-    .tg-channel-avatar {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--purple), var(--rose));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; flex-shrink: 0;
-    }
-    .tg-channel-name { font-family: sans-serif; font-weight: 700; font-size: 16px; }
-    .tg-channel-sub { font-family: sans-serif; font-size: 13px; color: rgba(255,255,255,.45); margin-top: 3px; }
-    .btn-tg-join {
-      background: #229ED9; color: #fff;
-      font-size: 17px; padding: 16px 44px;
-    }
+  /* ===== ФИНАЛЬНЫЙ CTA ===== */
+  .cta-section {
+    background:linear-gradient(135deg, #EDE6F8 0%, #F5EFFE 50%, #FEF0F6 100%);
+    padding:120px 60px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .cta-section::before {
+    content:''; position:absolute; width:600px; height:600px; border-radius:50%;
+    background:radial-gradient(circle, rgba(255,245,180,0.22) 0%, transparent 70%);
+    top:-200px; left:50%; transform:translateX(-50%); pointer-events:none;
+  }
+  .cta-section h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-weight:300;
+    font-size:56px; line-height:1.15; color:#3D2A48;
+    margin-bottom:20px; position:relative;
+  }
+  .cta-section > p {
+    font-weight:300; font-size:17px; line-height:1.7;
+    color:#5A4860; max-width:520px; margin:0 auto 48px; position:relative;
+  }
+  .cta-flower {
+    position:absolute; bottom:-40px; right:5%;
+    width:240px; mix-blend-mode:multiply; opacity:0.75; pointer-events:none;
+  }
+  .cta-portrait {
+    position:absolute; left:5%; bottom:0;
+    width:200px; height:300px;
+    border-radius:28px 28px 0 28px;
+    object-fit:cover; object-position:center top;
+    box-shadow:0 -8px 40px rgba(138,106,154,0.16);
+    opacity:0.90; pointer-events:none;
+  }
+  .contact-grid {
+    display:flex; flex-wrap:wrap; gap:14px;
+    justify-content:center; position:relative;
+  }
+  .contact-btn {
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Nunito',sans-serif; font-size:13px; font-weight:300;
+    letter-spacing:0.10em; padding:16px 32px; border-radius:100px;
+    text-decoration:none; transition:transform 0.2s, opacity 0.2s;
+    min-width:180px; justify-content:center;
+  }
+  .contact-btn:hover { transform:translateY(-2px); opacity:0.88; }
+  .contact-btn-tg  { background:#229ED9; color:#fff; }
+  .contact-btn-vk  { background:#0077FF; color:#fff; }
+  .contact-btn-max { background:#FF6B35; color:#fff; }
+  .contact-btn-tel {
+    background:transparent; color:#8A6A9A;
+    border:1.5px solid rgba(138,106,154,0.40);
+  }
+  .cta-note {
+    margin-top:20px; font-size:13px; color:#B898C8;
+    font-weight:300; font-style:italic; position:relative;
+  }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 700px) {
-      #hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-photo { height: 60vw; }
-      .hero-photo::before { background: linear-gradient(to top, #1A1020 0%, transparent 40%); }
-      .hero-text { padding: 40px 24px; }
-      .transform-grid { grid-template-columns: 1fr; }
-      .about-layout { grid-template-columns: 1fr; }
-      .about-photo { max-width: 280px; }
-      .section { padding: 56px 0; }
-    }
-  </style>
+  /* ===== ФУТЕР ===== */
+  footer {
+    background:#3D2A48; padding:52px 60px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;
+  }
+  .footer-logo {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+    font-size:22px; color:#E8D5E8; letter-spacing:0.04em;
+  }
+  .footer-logo span { color:#C8A2C8; }
+  .footer-links { display:flex; gap:32px; flex-wrap:wrap; }
+  .footer-links a {
+    font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+    color:#9A7AA8; font-weight:300; text-decoration:none; transition:color 0.2s;
+  }
+  .footer-links a:hover { color:#C8A2C8; }
+  .footer-copy { font-size:12px; color:#7A5A88; font-weight:300; }
+</style>
 </head>
 <body>
 
-<!-- ════════════════════════════ HERO ════════════════════════════ -->
-<section id="hero">
-  <div class="hero-text">
-    <p class="hero-eyebrow">FreebodyMove · Красноярск</p>
-    <h1>Зову тебя<br>в <em>путешествие</em><br>к <strong>себе</strong></h1>
-    <p class="hero-sub">Через тело — к лёгкости, энергии и ощущению, что ты живёшь по-настоящему</p>
+<!-- ===== НАВИГАЦИЯ ===== -->
+<nav>
+  <div class="nav-logo">Free<span>body</span>Move</div>
+  <div class="nav-links">
+    <a href="#method">Метод</a>
+    <a href="#practices">Практики</a>
+    <a href="#reviews">Отзывы</a>
+    <a href="#about">О Дарье</a>
+    <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Записаться</button>
+  </div>
+</nav>
 
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">FreebodyMove · Дарья Щеголькова · Красноярск</div>
+    <h1>Зову тебя<br>в <em>путешествие</em><br>к себе</h1>
+    <p class="hero-sub">Через тело — к лёгкости, энергии и ощущению, что ты живёшь по-настоящему.</p>
     <div class="hero-proof">
       <div class="proof-item">
         <div class="proof-num">4</div>
@@ -375,290 +705,338 @@
         <div class="proof-label">форматы</div>
       </div>
     </div>
-
-    <a href="https://t.me/feyaDarya" class="btn btn-rose">Написать мне</a>
-  </div>
-  <div class="hero-photo">
-    <img src="darya.jpg" alt="Дарья Щеголькова" />
-  </div>
-</section>
-
-<!-- ════════════════════════════ ДЛЯ КОГО ════════════════════════════ -->
-<section class="section">
-  <div class="container">
-    <div class="tag tag-rose">Это для тебя, если</div>
-    <h2>Узнаёшь себя?</h2>
-    <div class="divider divider-rose"></div>
-    <div class="pain-grid">
-      <div class="pain-card">Постоянная усталость — даже отдых не помогает восстановиться</div>
-      <div class="pain-card">Тело зажато и напряжено, живёшь «в голове» и не слышишь себя</div>
-      <div class="pain-card">Ощущение, что живёшь не свою жизнь — по инерции, не по-настоящему</div>
-      <div class="pain-card">Эмоции либо заблокированы, либо накрывают с головой</div>
-      <div class="pain-card">Нет сил, нет драйва, нет контакта со своей женской энергией</div>
-      <div class="pain-card">Хочется выдохнуть, наполниться и почувствовать себя живой</div>
+    <div class="btn-row">
+      <a href="https://t.me/feyaDarya" class="btn-main">Написать мне</a>
+      <button class="btn-ghost" onclick="document.getElementById('practices').scrollIntoView({behavior:'smooth'})">Посмотреть практики</button>
     </div>
   </div>
-</section>
-
-<!-- ═══════════════════════ ТРАНСФОРМАЦИЯ ═══════════════════════ -->
-<section class="section section-purple">
-  <div class="container">
-    <div class="tag tag-purple">Что меняется</div>
-    <h2>До и после работы с телом</h2>
-    <div class="divider divider-purple"></div>
-    <div class="transform-grid">
-      <div class="transform-col transform-before">
-        <div class="transform-label">Было</div>
-        <div class="t-item"><div class="dot"></div><span>Тело — как панцирь, всё зажато</span></div>
-        <div class="t-item"><div class="dot"></div><span>Хроническая усталость и тяжесть</span></div>
-        <div class="t-item"><div class="dot"></div><span>Живёшь «из надо», а не «из хочу»</span></div>
-        <div class="t-item"><div class="dot"></div><span>Мысли не останавливаются</span></div>
-        <div class="t-item"><div class="dot"></div><span>Нет удовольствия от жизни</span></div>
-        <div class="t-item"><div class="dot"></div><span>Отношения — на автопилоте</span></div>
-      </div>
-      <div class="transform-col transform-after">
-        <div class="transform-label">Стало</div>
-        <div class="t-item"><div class="dot"></div><span>Лёгкость и свобода в теле</span></div>
-        <div class="t-item"><div class="dot"></div><span>Прилив энергии и жизненных сил</span></div>
-        <div class="t-item"><div class="dot"></div><span>Делаешь из «хочу» — с удовольствием</span></div>
-        <div class="t-item"><div class="dot"></div><span>Мысли успокоились, есть тишина внутри</span></div>
-        <div class="t-item"><div class="dot"></div><span>От всего получаю удовольствие</span></div>
-        <div class="t-item"><div class="dot"></div><span>Вкус к жизни, тепло в отношениях</span></div>
-      </div>
-    </div>
+  <div class="hero-floral">
+    <img class="hero-photo" src="photos/darya-gold-reclining.jpg" alt="Дарья Щеголькова">
+    <img class="hero-botanical-accent" src="../mood-boards/botanical_wisteria.jpg" alt="">
   </div>
 </section>
 
-<!-- ═══════════════════════════ УСЛУГИ ═══════════════════════════ -->
-<section class="section">
-  <div class="container">
-    <div class="tag tag-purple">Как я работаю</div>
-    <h2>Выбери своё направление</h2>
-    <div class="divider divider-purple"></div>
-    <div class="services-grid">
-
-      <div class="service-card card-purple" style="padding:0; overflow:hidden;">
-        <img src="5408980713807222024_121.jpg" alt="Танцевальная терапия" style="width:100%; height:180px; object-fit:cover; object-position:center 15%; display:block;" />
-        <div style="padding:24px 26px 28px;">
-          <div class="service-icon">💃</div>
-          <h3>Танцевально-двигательная терапия</h3>
-          <p>Групповые занятия — освобождаем блоки и зажимы через движение. Это не хореография, а живой разговор с телом. Каждое занятие — новая тема и новое открытие о себе.</p>
-          <div class="service-price">800 ₽ / занятие</div>
-        </div>
-      </div>
-
-      <div class="service-card card-rose">
-        <div class="service-icon">🌸</div>
-        <h3>Индивидуальная работа с запросом</h3>
-        <p>Работаем с твоим конкретным запросом через тело, энергии и считывание. Причинно-следственные связи не всегда очевидны — я работаю не от ума. Онлайн и вживую.</p>
-        <div class="service-price">Индивидуально</div>
-      </div>
-
-      <div class="service-card card-gold">
-        <div class="service-icon">🤲</div>
-        <h3>Массаж</h3>
-        <p>Массаж стоп, запуск лимфы, висцеральный массаж живота. Не просто физическое воздействие — работа с энергетическими потоками тела. Вживую, Красноярск.</p>
-        <div class="service-price">Индивидуально</div>
-      </div>
-
-      <div class="service-card card-purple">
-        <div class="service-icon">🦋</div>
-        <h3>Интенсив «Расправь крылья»</h3>
-        <p>27-дневный онлайн-интенсив: 7 видеоуроков, практики, домашние задания и моя личная обратная связь. Для тех, кто хочет системных изменений в своём темпе.</p>
-        <div class="service-price">от 4 000 ₽</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════ ГАЛЕРЕЯ ════════════════════════════ -->
-<section class="section">
-  <div class="container">
-    <div class="tag tag-purple">Атмосфера</div>
-    <h2>Ощути пространство</h2>
-    <div class="divider divider-purple"></div>
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="5408980713807222016_121.jpg" alt="Дарья — расслабление с сиренью" />
-      </div>
-      <div class="gallery-item">
-        <img src="5408980713807222021_121.jpg" alt="Дарья — медитативное состояние" />
-      </div>
-      <div class="gallery-item">
-        <img src="5408980713807222020_121.jpg" alt="Дарья Щеголькова" />
-      </div>
-      <div class="gallery-item">
-        <img src="5408980713807222018_121.jpg" alt="Дарья с сиренью" />
-      </div>
-      <div class="gallery-item wide">
-        <img src="5408980713807222024_121.jpg" alt="Свобода движения" style="object-position: center 20%;" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════ ВИДЕО — ТДТ ════════════════════════ -->
-<section class="section section-purple">
-  <div class="container">
-    <div class="tag tag-purple">Посмотри изнутри</div>
-    <h2>Как проходит танцевально-двигательная терапия</h2>
-    <div class="divider divider-purple"></div>
-    <p style="font-family:sans-serif; font-size:16px; color:var(--muted); max-width:600px; line-height:1.7;">
-      Это не хореография и не урок танца. Это живой разговор с телом — через музыку, движение и ощущения. Смотри.
-    </p>
-    <a href="https://vk.ru/clip96147967_456241653" target="_blank" style="display:block; text-decoration:none; margin-top:36px;">
-      <div style="
-        background: linear-gradient(135deg, #1A1020 0%, #3D2450 60%, #5C3060 100%);
-        border-radius: 20px; padding: 60px 32px; text-align: center;
-        position: relative; overflow: hidden;
-        box-shadow: 0 8px 40px rgba(138,106,154,.25);
-        transition: transform .2s, box-shadow .2s;
-      " onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 48px rgba(138,106,154,.35)'"
-         onmouseout="this.style.transform='';this.style.boxShadow='0 8px 40px rgba(138,106,154,.25)'">
-        <!-- Фон-свечение -->
-        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, rgba(201,122,130,.15) 0%, transparent 70%);"></div>
-        <!-- Кнопка Play -->
-        <div style="
-          width: 80px; height: 80px; border-radius: 50%;
-          background: rgba(255,255,255,.15); border: 2px solid rgba(255,255,255,.4);
-          display: flex; align-items: center; justify-content: center;
-          margin: 0 auto 24px; position: relative; z-index: 1;
-          font-size: 32px;
-        ">▶</div>
-        <div style="position:relative;z-index:1;">
-          <div style="font-family:sans-serif; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:10px;">VK Видео</div>
-          <div style="font-family:Georgia,serif; font-size:22px; color:#fff; margin-bottom:8px;">Смотреть: как проходит занятие</div>
-          <div style="font-family:sans-serif; font-size:14px; color:rgba(255,255,255,.5);">Откроется ВКонтакте →</div>
-        </div>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- ══════════════════════ TELEGRAM INVITE ══════════════════════ -->
-<section id="tg-invite">
-  <div class="tag tag-purple" style="margin-bottom:24px;">Telegram-канал</div>
-  <h2>Приглашаю тебя в свой канал</h2>
-  <p>Там я делюсь практиками, движением, своими историями и живой атмосферой того, чем занимаюсь. Каждую неделю — что-то настоящее.</p>
-  <div class="tg-channel-preview">
-    <div class="tg-channel-avatar">🌸</div>
+<!-- ===== ЭТО ПРО ТЕБЯ ===== -->
+<section class="for-you">
+  <img class="for-you-watercolor" src="photos/watercolor-silhouette.jpg" alt="">
+  <svg class="botanical-svg botanical-svg-tr" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M240,0 C210,35 175,68 158,108 C142,148 146,188 137,222" stroke="#8A6A9A" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M180,62 C163,50 148,46 135,45" stroke="#8A6A9A" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M135,45 C124,36 127,24 136,23 C139,34 137,42 135,45Z" fill="#8A6A9A" opacity="0.38"/><circle cx="133" cy="31" r="6" fill="#C9A96E" opacity="0.72"/><circle cx="131" cy="19" r="8" fill="#C8A2C8" opacity="0.65"/><circle cx="141" cy="24" r="8" fill="#C8A2C8" opacity="0.60"/><circle cx="143" cy="38" r="8" fill="#C8A2C8" opacity="0.60"/><circle cx="133" cy="43" r="8" fill="#C8A2C8" opacity="0.60"/><circle cx="123" cy="38" r="8" fill="#C8A2C8" opacity="0.60"/><circle cx="125" cy="24" r="8" fill="#C8A2C8" opacity="0.60"/><path d="M160,104 C148,99 138,101 129,108" stroke="#8A6A9A" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M129,108 C118,102 119,91 127,89 C131,100 130,106 129,108Z" fill="#8A6A9A" opacity="0.32"/><ellipse cx="150" cy="152" rx="7" ry="13" fill="#C97A82" opacity="0.58"/><circle cx="150" cy="140" r="6" fill="#C97A82" opacity="0.68"/><path d="M160,128 C167,122 174,126 170,133 C163,131 160,128 160,128Z" fill="#8A6A9A" opacity="0.30"/><path d="M152,140 C143,134 143,125 151,123 C153,133 153,138 152,140Z" fill="#8A6A9A" opacity="0.30"/><circle cx="139" cy="188" r="4.5" fill="#C8A2C8" opacity="0.62"/><circle cx="136" cy="176" r="3.5" fill="#C8A2C8" opacity="0.52"/><circle cx="142" cy="169" r="3" fill="#C9A96E" opacity="0.58"/></svg>
+  <svg class="botanical-svg botanical-svg-bl" viewBox="0 0 210 210" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0,210 C28,182 56,152 72,118 C88,84 84,50 92,22" stroke="#8A6A9A" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M50,155 C65,146 79,146 91,152" stroke="#8A6A9A" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M91,152 C101,146 99,135 90,134 C87,145 89,150 91,152Z" fill="#8A6A9A" opacity="0.32"/><circle cx="93" cy="142" r="5" fill="#C9A96E" opacity="0.68"/><circle cx="93" cy="130" r="7" fill="#C97A82" opacity="0.58"/><circle cx="101" cy="135" r="7" fill="#C97A82" opacity="0.54"/><circle cx="101" cy="149" r="7" fill="#C97A82" opacity="0.54"/><circle cx="93" cy="154" r="7" fill="#C97A82" opacity="0.54"/><circle cx="85" cy="149" r="7" fill="#C97A82" opacity="0.54"/><circle cx="85" cy="135" r="7" fill="#C97A82" opacity="0.54"/><path d="M64,116 C75,112 84,116 86,123" stroke="#8A6A9A" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M64,116 C56,110 58,101 66,100 C68,111 66,114 64,116Z" fill="#8A6A9A" opacity="0.28"/><ellipse cx="80" cy="74" rx="6" ry="12" fill="#C8A2C8" opacity="0.58"/><circle cx="80" cy="63" r="5" fill="#C8A2C8" opacity="0.68"/><circle cx="86" cy="40" r="3.5" fill="#C8A2C8" opacity="0.58"/><circle cx="88" cy="31" r="3" fill="#C9A96E" opacity="0.52"/></svg>
+  <div class="section-eyebrow">Это для тебя, если</div>
+  <div class="section-divider"></div>
+  <div class="for-you-grid">
     <div>
-      <div class="tg-channel-name">Танцевальная терапия ✨</div>
-      <div class="tg-channel-sub">@freebodymove · 158 подписчиков</div>
+      <h2>Узнаёшь себя?</h2>
+      <p>Ты не в кризисе. У тебя всё хорошо — и при этом где-то внутри живёт ощущение, что чего-то своего не хватает.</p>
+      <p>Делаешь много. Для всех. Тело несёт тебя — но ты его почти не слышишь. Хочется чего-то своего. Не обязательно большого — просто своего. Что-то откликнулось — и ты здесь.</p>
+    </div>
+    <div>
+      <ul class="pain-list">
+        <li>Живёшь из «надо», а не из «хочу» — своё в конце очереди</li>
+        <li>Делаешь для всех — себе остаётся что-то, если вообще остаётся</li>
+        <li>Тело несёт тебя, но ты его не слышишь</li>
+        <li>Мысли не останавливаются — голова всегда занята</li>
+        <li>Хочется выдохнуть и почувствовать: это я, не моя роль</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ТРАНСФОРМАЦИЯ ===== -->
+<section class="transform">
+  <svg class="meadow-bg-svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M80,400 Q78,340 82,270 Q84,230 80,175 Q76,140 82,100" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><path d="M81,280 Q70,271 63,269" stroke="#8A6A9A" stroke-width="1.2" fill="none"/><path d="M63,269 Q55,262 59,256 Q66,263 63,269Z" fill="#8A6A9A" opacity="0.5"/><circle cx="82" cy="92" r="7" fill="#C9A96E"/><circle cx="82" cy="78" r="9" fill="#C8A2C8"/><circle cx="95" cy="85" r="9" fill="#C8A2C8" transform="rotate(60,82,92)"/><circle cx="95" cy="99" r="9" fill="#C8A2C8" transform="rotate(120,82,92)"/><circle cx="82" cy="106" r="9" fill="#C8A2C8" transform="rotate(180,82,92)"/><circle cx="69" cy="99" r="9" fill="#C8A2C8" transform="rotate(240,82,92)"/><circle cx="69" cy="85" r="9" fill="#C8A2C8" transform="rotate(300,82,92)"/><path d="M250,400 Q248,350 252,295 Q254,262 250,220 Q246,188 252,155" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><circle cx="252" cy="147" r="6" fill="#C9A96E"/><line x1="252" y1="141" x2="252" y2="126" stroke="#C8A2C8" stroke-width="3"/><line x1="261" y1="144" x2="271" y2="135" stroke="#C8A2C8" stroke-width="3"/><line x1="265" y1="153" x2="278" y2="153" stroke="#C8A2C8" stroke-width="3"/><line x1="261" y1="162" x2="271" y2="171" stroke="#C8A2C8" stroke-width="3"/><line x1="252" y1="166" x2="252" y2="181" stroke="#C8A2C8" stroke-width="3"/><line x1="243" y1="162" x2="233" y2="171" stroke="#C8A2C8" stroke-width="3"/><line x1="239" y1="153" x2="226" y2="153" stroke="#C8A2C8" stroke-width="3"/><line x1="243" y1="144" x2="233" y2="135" stroke="#C8A2C8" stroke-width="3"/><path d="M450,400 Q448,342 452,278 Q454,240 450,196 Q446,160 452,120" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><path d="M451,340 Q462,331 468,329" stroke="#8A6A9A" stroke-width="1.2" fill="none"/><circle cx="452" cy="112" r="6" fill="#C9A96E"/><ellipse cx="452" cy="99" rx="6" ry="12" fill="#C97A82"/><ellipse cx="465" cy="106" rx="6" ry="12" fill="#C97A82" transform="rotate(72,452,112)"/><ellipse cx="461" cy="121" rx="6" ry="12" fill="#C97A82" transform="rotate(144,452,112)"/><ellipse cx="443" cy="121" rx="6" ry="12" fill="#C97A82" transform="rotate(216,452,112)"/><ellipse cx="439" cy="106" rx="6" ry="12" fill="#C97A82" transform="rotate(288,452,112)"/><path d="M620,400 Q618,365 622,330 Q624,310 620,288" stroke="#8A6A9A" stroke-width="1.5" fill="none"/><ellipse cx="620" cy="282" rx="6" ry="11" fill="#C8A2C8"/><circle cx="620" cy="272" r="5" fill="#C8A2C8"/><path d="M760,400 Q758,338 762,268 Q764,228 760,180 Q756,145 762,108" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><path d="M761,320 Q750,312 744,310" stroke="#8A6A9A" stroke-width="1.2" fill="none"/><circle cx="762" cy="100" r="7" fill="#C9A96E"/><circle cx="762" cy="86" r="9" fill="#C8A2C8"/><circle cx="775" cy="93" r="9" fill="#C8A2C8" transform="rotate(60,762,100)"/><circle cx="775" cy="107" r="9" fill="#C8A2C8" transform="rotate(120,762,100)"/><circle cx="762" cy="114" r="9" fill="#C8A2C8" transform="rotate(180,762,100)"/><circle cx="749" cy="107" r="9" fill="#C8A2C8" transform="rotate(240,762,100)"/><circle cx="749" cy="93" r="9" fill="#C8A2C8" transform="rotate(300,762,100)"/><path d="M940,400 Q938,342 942,275 Q944,235 940,188 Q936,152 942,115" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><path d="M941,330 Q952,321 958,319" stroke="#8A6A9A" stroke-width="1.2" fill="none"/><circle cx="942" cy="107" r="6" fill="#C9A96E"/><ellipse cx="942" cy="94" rx="6" ry="13" fill="#C97A82"/><ellipse cx="956" cy="101" rx="6" ry="13" fill="#C97A82" transform="rotate(60,942,107)"/><ellipse cx="952" cy="117" rx="6" ry="13" fill="#C97A82" transform="rotate(120,942,107)"/><ellipse cx="932" cy="117" rx="6" ry="13" fill="#C97A82" transform="rotate(216,942,107)"/><ellipse cx="928" cy="101" rx="6" ry="13" fill="#C97A82" transform="rotate(288,942,107)"/><path d="M1100,400 Q1098,348 1102,288 Q1104,252 1100,208 Q1096,174 1102,138" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><circle cx="1102" cy="130" r="6" fill="#C9A96E"/><line x1="1102" y1="124" x2="1102" y2="109" stroke="#C8A2C8" stroke-width="3"/><line x1="1111" y1="127" x2="1121" y2="118" stroke="#C8A2C8" stroke-width="3"/><line x1="1115" y1="136" x2="1128" y2="136" stroke="#C8A2C8" stroke-width="3"/><line x1="1111" y1="145" x2="1121" y2="154" stroke="#C8A2C8" stroke-width="3"/><line x1="1102" y1="149" x2="1102" y2="164" stroke="#C8A2C8" stroke-width="3"/><line x1="1093" y1="145" x2="1083" y2="154" stroke="#C8A2C8" stroke-width="3"/><line x1="1089" y1="136" x2="1076" y2="136" stroke="#C8A2C8" stroke-width="3"/><line x1="1093" y1="127" x2="1083" y2="118" stroke="#C8A2C8" stroke-width="3"/><circle cx="170" cy="210" r="2.5" fill="#C8A2C8"/><circle cx="360" cy="160" r="2.5" fill="#C9A96E"/><circle cx="540" cy="240" r="2.5" fill="#C97A82"/><circle cx="680" cy="180" r="2.5" fill="#C8A2C8"/><circle cx="870" cy="230" r="2.5" fill="#C9A96E"/><circle cx="1020" cy="270" r="2.5" fill="#C8A2C8"/></svg>
+  <svg class="botanical-svg botanical-svg-tr" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M200,0 C178,28 155,55 142,88 C130,121 133,156 127,185" stroke="#8A6A9A" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M158,52 C144,43 131,40 120,39" stroke="#8A6A9A" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M120,39 C111,31 114,20 122,19 C125,30 123,37 120,39Z" fill="#8A6A9A" opacity="0.35"/><circle cx="118" cy="27" r="5.5" fill="#C9A96E" opacity="0.70"/><circle cx="116" cy="16" r="7" fill="#C8A2C8" opacity="0.62"/><circle cx="125" cy="21" r="7" fill="#C8A2C8" opacity="0.58"/><circle cx="127" cy="34" r="7" fill="#C8A2C8" opacity="0.58"/><circle cx="118" cy="38" r="7" fill="#C8A2C8" opacity="0.58"/><circle cx="109" cy="34" r="7" fill="#C8A2C8" opacity="0.58"/><circle cx="111" cy="21" r="7" fill="#C8A2C8" opacity="0.58"/><path d="M142,86 C131,82 122,84 115,90" stroke="#8A6A9A" stroke-width="1.4" fill="none" stroke-linecap="round"/><ellipse cx="134" cy="128" rx="6" ry="12" fill="#C97A82" opacity="0.56"/><circle cx="134" cy="117" r="5" fill="#C97A82" opacity="0.66"/><circle cx="125" cy="162" r="4" fill="#C8A2C8" opacity="0.60"/><circle cx="122" cy="152" r="3" fill="#C9A96E" opacity="0.55"/></svg>
+  <div class="section-eyebrow">Что меняется</div>
+  <div class="section-divider"></div>
+  <h2>До и после работы с телом</h2>
+  <div class="transform-grid">
+    <div class="transform-col transform-before">
+      <div class="transform-label">Было</div>
+      <div class="t-item"><div class="t-dot"></div><span>Делаешь много — для всех, себе в конце</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Тело несёт тебя, но ты его не чувствуешь</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Живёшь «из надо», а не «из хочу»</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Мысли не останавливаются</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Хочется чего-то своего — но оно откладывается</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Отношения — на автопилоте</span></div>
+    </div>
+    <div class="transform-col transform-after">
+      <div class="transform-label">Стало</div>
+      <div class="t-item"><div class="t-dot"></div><span>Лёгкость и свобода в теле</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Прилив энергии и жизненных сил</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Делаешь из «хочу» — с удовольствием</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Мысли успокоились, есть тишина внутри</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>От всего получаю удовольствие</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Вкус к жизни, тепло в отношениях</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ФОТО-СТРИП: БЕЛОЕ ПЛАТЬЕ ===== -->
+<section class="freedom-strip">
+  <img class="freedom-photo" src="photos/darya-bridge.jpg" alt="Дарья Щеголькова">
+  <div class="freedom-overlay"></div>
+  <div class="freedom-caption">
+    <div class="freedom-tag">FreebodyMove · Красноярск</div>
+    <p class="freedom-line">Свобода начинается с одного шага навстречу себе</p>
+  </div>
+</section>
+
+<!-- ===== МЕТОД ===== -->
+<section class="method" id="method">
+  <div class="method-img">
+    <img class="method-photo" src="photos/darya-lilac-lying.jpg" alt="Дарья — телесная практика">
+    <svg style="position:absolute;bottom:-40px;right:-30px;width:160px;opacity:0.55;pointer-events:none;" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M80,160 Q78,120 82,85 Q84,65 80,42 Q76,22 82,5" stroke="#8A6A9A" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M81,110 Q68,102 62,100" stroke="#8A6A9A" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M62,100 Q54,94 57,88 Q64,94 62,100Z" fill="#8A6A9A" opacity="0.38"/><path d="M81,75 Q94,68 100,66" stroke="#8A6A9A" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M100,66 Q108,61 105,55 Q98,61 100,66Z" fill="#8A6A9A" opacity="0.38"/><circle cx="82" cy="0" r="5" fill="#C9A96E" opacity="0.72"/><circle cx="82" cy="-10" r="7" fill="#C97A82" opacity="0.62"/><circle cx="91" cy="-5" r="7" fill="#C97A82" opacity="0.58"/><circle cx="91" cy="7" r="7" fill="#C97A82" opacity="0.58"/><circle cx="82" cy="10" r="7" fill="#C97A82" opacity="0.58"/><circle cx="73" cy="7" r="7" fill="#C97A82" opacity="0.58"/><circle cx="73" cy="-5" r="7" fill="#C97A82" opacity="0.58"/></svg>
+  </div>
+  <div class="method-text">
+    <div class="section-eyebrow">Танцевально-двигательная терапия</div>
+    <div class="section-divider"></div>
+    <h2>Тело — это не просто оболочка</h2>
+    <p>ТДТ — это направление психотерапии, где работа происходит через движение и тело. Не хореография, не фитнес. Это способ услышать то, что живёт глубже слов.</p>
+    <div class="quote-pull">
+      <p>«Там где болит — там говорит. Когда история наконец выходит через движение — что-то меняется навсегда.»</p>
+    </div>
+    <p>Я не работаю по методичке. Я чувствую тело — считываю где блоки, где зажимы, где застряла энергия. И вместе мы идём туда, куда нужно.</p>
+  </div>
+</section>
+
+<!-- ===== УСЛУГИ ===== -->
+<section class="practices" id="practices">
+  <svg class="meadow-bg-svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M60,400 Q58,340 62,270 Q64,228 60,178 Q56,140 62,100" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><circle cx="62" cy="92" r="7" fill="#C9A96E"/><circle cx="62" cy="78" r="9" fill="#C8A2C8"/><circle cx="75" cy="85" r="9" fill="#C8A2C8" transform="rotate(60,62,92)"/><circle cx="75" cy="99" r="9" fill="#C8A2C8" transform="rotate(120,62,92)"/><circle cx="62" cy="106" r="9" fill="#C8A2C8" transform="rotate(180,62,92)"/><circle cx="49" cy="99" r="9" fill="#C8A2C8" transform="rotate(240,62,92)"/><circle cx="49" cy="85" r="9" fill="#C8A2C8" transform="rotate(300,62,92)"/><path d="M280,400 Q278,355 282,308 Q284,278 280,240 Q276,208 282,175" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><circle cx="282" cy="167" r="6" fill="#C9A96E"/><line x1="282" y1="161" x2="282" y2="148" stroke="#C8A2C8" stroke-width="3"/><line x1="291" y1="164" x2="300" y2="155" stroke="#C8A2C8" stroke-width="3"/><line x1="294" y1="173" x2="306" y2="173" stroke="#C8A2C8" stroke-width="3"/><line x1="291" y1="182" x2="300" y2="191" stroke="#C8A2C8" stroke-width="3"/><line x1="282" y1="185" x2="282" y2="198" stroke="#C8A2C8" stroke-width="3"/><line x1="273" y1="182" x2="264" y2="191" stroke="#C8A2C8" stroke-width="3"/><line x1="270" y1="173" x2="258" y2="173" stroke="#C8A2C8" stroke-width="3"/><line x1="273" y1="164" x2="264" y2="155" stroke="#C8A2C8" stroke-width="3"/><path d="M520,400 Q518,348 522,290 Q524,255 520,214" stroke="#8A6A9A" stroke-width="1.5" fill="none"/><ellipse cx="520" cy="207" rx="6" ry="11" fill="#C97A82"/><circle cx="520" cy="197" r="5" fill="#C97A82"/><path d="M780,400 Q778,338 782,268 Q784,225 780,176 Q776,142 782,106" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><circle cx="782" cy="98" r="7" fill="#C9A96E"/><ellipse cx="782" cy="85" rx="7" ry="13" fill="#C97A82"/><ellipse cx="796" cy="92" rx="7" ry="13" fill="#C97A82" transform="rotate(60,782,98)"/><ellipse cx="792" cy="107" rx="7" ry="13" fill="#C97A82" transform="rotate(120,782,98)"/><ellipse cx="772" cy="107" rx="7" ry="13" fill="#C97A82" transform="rotate(216,782,98)"/><ellipse cx="768" cy="92" rx="7" ry="13" fill="#C97A82" transform="rotate(288,782,98)"/><path d="M1060,400 Q1058,345 1062,282 Q1064,245 1060,198 Q1056,162 1062,126" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><circle cx="1062" cy="118" r="7" fill="#C9A96E"/><circle cx="1062" cy="104" r="9" fill="#C8A2C8"/><circle cx="1075" cy="111" r="9" fill="#C8A2C8" transform="rotate(60,1062,118)"/><circle cx="1075" cy="125" r="9" fill="#C8A2C8" transform="rotate(120,1062,118)"/><circle cx="1062" cy="132" r="9" fill="#C8A2C8" transform="rotate(180,1062,118)"/><circle cx="1049" cy="125" r="9" fill="#C8A2C8" transform="rotate(240,1062,118)"/><circle cx="1049" cy="111" r="9" fill="#C8A2C8" transform="rotate(300,1062,118)"/><circle cx="180" cy="220" r="2.5" fill="#C8A2C8"/><circle cx="400" cy="170" r="2.5" fill="#C9A96E"/><circle cx="650" cy="230" r="2.5" fill="#C97A82"/><circle cx="900" cy="190" r="2.5" fill="#C8A2C8"/></svg>
+  <div class="section-eyebrow">Как я работаю</div>
+  <div class="section-divider"></div>
+  <h2>Выбери своё направление</h2>
+  <p class="practices-intro">Не нужно уметь танцевать. Не нужно быть готовым. Нужно только прийти — тело само знает что делать.</p>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <div class="card-body" style="padding-top:44px;">
+        <div class="card-stripe" style="background:linear-gradient(90deg,#C8A2C8,#8A6A9A);"></div>
+        <div class="card-icon"><img src="photos/icon-dance.jpg" alt="Танцовщица"></div>
+        <div class="card-tag" style="color:#8A6A9A;">Группа · каждую среду</div>
+        <h3>Танцевально-двигательная терапия</h3>
+        <p>Групповые занятия — освобождаем блоки и зажимы через движение. Это не хореография, а живой разговор с телом. Каждое занятие — новая тема и новое открытие о себе.</p>
+        <a href="https://vk.ru/clip96147967_456241653" target="_blank" class="card-video-preview">
+          <div class="card-play-icon">▶</div>
+          <div>
+            <div class="card-video-text">Посмотри как проходит занятие</div>
+            <div class="card-video-hint">VK Видео →</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding-top:44px;">
+        <div class="card-stripe" style="background:linear-gradient(90deg,#C97A82,#E8B4C8);"></div>
+        <div class="card-icon"><img src="photos/icon-lotus.jpg" alt="Лотос"></div>
+        <div class="card-tag" style="color:#C97A82;">Индивидуально</div>
+        <h3>Индивидуальная работа с запросом</h3>
+        <p>Работаем с твоим конкретным запросом через тело, энергии и считывание. Онлайн и вживую. Причинно-следственные связи не всегда очевидны — я работаю не от ума.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding-top:44px;">
+        <div class="card-stripe" style="background:linear-gradient(90deg,#C9A96E,#F0D898);"></div>
+        <div class="card-icon"><img src="photos/icon-hands.jpg" alt="Руки с цветами"></div>
+        <div class="card-tag" style="color:#B89048;">Офлайн · Красноярск</div>
+        <h3>Массаж</h3>
+        <p>Массаж стоп, запуск лимфы, висцеральный массаж живота. Не просто физическое воздействие — работа с энергетическими потоками тела.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="padding-top:44px;">
+        <div class="card-stripe" style="background:linear-gradient(90deg,#C8A2C8,#8A6A9A);"></div>
+        <div class="card-icon"><img src="photos/icon-wings.jpg" alt="Крылья"></div>
+        <div class="card-tag" style="color:#8A6A9A;">Онлайн · Вся Россия</div>
+        <h3>Интенсив «Расправь крылья»</h3>
+        <p>Структурный путь к себе через движение — за 27 дней. Не «попробовать» — а пройти по-настоящему. Видеопрактики, живые встречи, личная обратная связь Дарьи. Онлайн — по всей России.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- ===== TELEGRAM ===== -->
+<section class="tg-section">
+  <div class="section-eyebrow">Telegram-канал</div>
+  <div class="section-divider" style="margin:0 auto 40px;"></div>
+  <h2>Приглашаю в свой канал</h2>
+  <p>Там я делюсь практиками, движением, своими историями и живой атмосферой того, чем занимаюсь. Каждую неделю — что-то настоящее.</p>
+  <div class="tg-preview">
+    <div class="tg-avatar">🌸</div>
+    <div>
+      <div class="tg-name">Танцевальная терапия ✨</div>
+      <div class="tg-sub">@freebodymove · 158 подписчиков</div>
     </div>
   </div>
   <br>
-  <a href="https://t.me/freebodymove" class="btn btn-tg-join">Подписаться на канал</a>
+  <a href="https://t.me/freebodymove" class="btn-tg">Подписаться на канал</a>
 </section>
 
-<!-- ═══════════════════════════ ОТЗЫВЫ ═══════════════════════════ -->
-<section class="section section-rose">
-  <div class="container">
-    <div class="tag tag-rose">Отзывы</div>
-    <h2>Что говорят после практик</h2>
-    <div class="divider divider-rose"></div>
-    <div class="reviews-grid">
+<!-- ===== ОТЗЫВЫ ===== -->
+<section class="reviews" id="reviews">
+  <svg class="meadow-bg-svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M120,400 Q118,340 122,270 Q124,225 120,170 Q116,132 122,92" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><circle cx="122" cy="84" r="7" fill="#C9A96E"/><circle cx="122" cy="70" r="9" fill="#C97A82"/><circle cx="135" cy="77" r="9" fill="#C97A82" transform="rotate(60,122,84)"/><circle cx="135" cy="91" r="9" fill="#C97A82" transform="rotate(120,122,84)"/><circle cx="122" cy="98" r="9" fill="#C97A82" transform="rotate(180,122,84)"/><circle cx="109" cy="91" r="9" fill="#C97A82" transform="rotate(240,122,84)"/><circle cx="109" cy="77" r="9" fill="#C97A82" transform="rotate(300,122,84)"/><path d="M340,400 Q338,350 342,295 Q344,260 340,215" stroke="#8A6A9A" stroke-width="1.5" fill="none"/><ellipse cx="340" cy="208" rx="6" ry="11" fill="#C8A2C8"/><circle cx="340" cy="198" r="5" fill="#C8A2C8"/><path d="M560,400 Q558,338 562,268 Q564,225 560,176 Q556,142 562,104" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><circle cx="562" cy="96" r="6" fill="#C9A96E"/><line x1="562" y1="90" x2="562" y2="75" stroke="#C8A2C8" stroke-width="3"/><line x1="571" y1="93" x2="581" y2="84" stroke="#C8A2C8" stroke-width="3"/><line x1="575" y1="102" x2="588" y2="102" stroke="#C8A2C8" stroke-width="3"/><line x1="571" y1="111" x2="581" y2="120" stroke="#C8A2C8" stroke-width="3"/><line x1="562" y1="115" x2="562" y2="130" stroke="#C8A2C8" stroke-width="3"/><line x1="553" y1="111" x2="543" y2="120" stroke="#C8A2C8" stroke-width="3"/><line x1="549" y1="102" x2="536" y2="102" stroke="#C8A2C8" stroke-width="3"/><line x1="553" y1="93" x2="543" y2="84" stroke="#C8A2C8" stroke-width="3"/><path d="M800,400 Q798,342 802,278 Q804,238 800,190 Q796,155 802,118" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><circle cx="802" cy="110" r="7" fill="#C9A96E"/><circle cx="802" cy="96" r="9" fill="#C8A2C8"/><circle cx="815" cy="103" r="9" fill="#C8A2C8" transform="rotate(60,802,110)"/><circle cx="815" cy="117" r="9" fill="#C8A2C8" transform="rotate(120,802,110)"/><circle cx="802" cy="124" r="9" fill="#C8A2C8" transform="rotate(180,802,110)"/><circle cx="789" cy="117" r="9" fill="#C8A2C8" transform="rotate(240,802,110)"/><circle cx="789" cy="103" r="9" fill="#C8A2C8" transform="rotate(300,802,110)"/><path d="M1040,400 Q1038,348 1042,285 Q1044,248 1040,200 Q1036,164 1042,128" stroke="#8A6A9A" stroke-width="1.8" fill="none"/><circle cx="1042" cy="120" r="6" fill="#C9A96E"/><ellipse cx="1042" cy="107" rx="6" ry="12" fill="#C97A82"/><ellipse cx="1055" cy="114" rx="6" ry="12" fill="#C97A82" transform="rotate(72,1042,120)"/><ellipse cx="1051" cy="129" rx="6" ry="12" fill="#C97A82" transform="rotate(144,1042,120)"/><ellipse cx="1033" cy="129" rx="6" ry="12" fill="#C97A82" transform="rotate(216,1042,120)"/><ellipse cx="1029" cy="114" rx="6" ry="12" fill="#C97A82" transform="rotate(288,1042,120)"/><circle cx="230" cy="200" r="2.5" fill="#C8A2C8"/><circle cx="460" cy="170" r="2.5" fill="#C97A82"/><circle cx="680" cy="220" r="2.5" fill="#C9A96E"/><circle cx="920" cy="185" r="2.5" fill="#C8A2C8"/><circle cx="1150" cy="250" r="2.5" fill="#C97A82"/></svg>
+  <svg class="botanical-svg botanical-svg-tl" viewBox="0 0 210 210" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0,0 C28,32 55,65 70,102 C85,139 82,176 90,206" stroke="#8A6A9A" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M52,62 C66,52 80,49 92,48" stroke="#8A6A9A" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M92,48 C101,40 98,29 90,28 C87,39 89,46 92,48Z" fill="#8A6A9A" opacity="0.35"/><circle cx="94" cy="36" r="5.5" fill="#C9A96E" opacity="0.70"/><circle cx="96" cy="25" r="7" fill="#C97A82" opacity="0.60"/><circle cx="106" cy="30" r="7" fill="#C97A82" opacity="0.56"/><circle cx="106" cy="44" r="7" fill="#C97A82" opacity="0.56"/><circle cx="94" cy="48" r="7" fill="#C97A82" opacity="0.56"/><circle cx="82" cy="44" r="7" fill="#C97A82" opacity="0.56"/><circle cx="82" cy="30" r="7" fill="#C97A82" opacity="0.56"/><ellipse cx="80" cy="140" rx="6" ry="12" fill="#C8A2C8" opacity="0.58"/><circle cx="80" cy="129" r="5" fill="#C8A2C8" opacity="0.66"/></svg>
+  <svg class="botanical-svg botanical-svg-br" viewBox="0 0 210 210" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M210,210 C182,178 154,145 139,108 C124,71 127,34 119,4" stroke="#8A6A9A" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M158,148 C144,158 130,161 118,162" stroke="#8A6A9A" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="116" cy="154" r="5.5" fill="#C9A96E" opacity="0.70"/><circle cx="116" cy="165" r="7" fill="#C8A2C8" opacity="0.60"/><circle cx="106" cy="160" r="7" fill="#C8A2C8" opacity="0.56"/><circle cx="106" cy="148" r="7" fill="#C8A2C8" opacity="0.56"/><circle cx="116" cy="144" r="7" fill="#C8A2C8" opacity="0.56"/><circle cx="126" cy="148" r="7" fill="#C8A2C8" opacity="0.56"/><circle cx="126" cy="160" r="7" fill="#C8A2C8" opacity="0.56"/><ellipse cx="130" cy="70" rx="6" ry="12" fill="#C97A82" opacity="0.58"/><circle cx="130" cy="59" r="5" fill="#C97A82" opacity="0.66"/></svg>
+  <div class="section-eyebrow">Отзывы</div>
+  <div class="section-divider"></div>
+  <h2>Что говорят после практик</h2>
+  <div class="reviews-grid">
 
-      <div class="review-card">
-        <div class="review-text">
-          <span>После работы с Дашей почувствовала расслабление, мысли успокоились. Во время работы почувствовала, насколько тело зажато — Даша так и сказала: «тело в панцире». Но в процессе стало раскрываться и пошли слёзы. Через месяц: появилось много энергии и желания действовать 🔥</span>
-        </div>
-        <div class="review-author">
-          <div class="review-avatar">🌸</div>
-          <div>
-            <div class="review-name">Анастасия</div>
-            <div class="review-role">индивидуальная работа</div>
-          </div>
+    <div class="review-card">
+      <div class="review-text">
+        <span>После работы с Дашей почувствовала расслабление, мысли успокоились, хотелось молчать 🧘‍♀️ Тело раскрывалось, пошли слёзы. Через месяц: появилось много энергии и желания действовать 🔥</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">🌸</div>
+        <div>
+          <div class="review-name">Анастасия</div>
+          <div class="review-role">индивидуальная работа</div>
         </div>
       </div>
-
-      <div class="review-card">
-        <div class="review-text">
-          <span>Я в кайфе! Приготовила стейки — такая вкусная еда получилась, это что-то божественное. Я от всего получаю удовольствие теперь. Вместо конфликта с мужем — спокойствие и тепло.</span>
-        </div>
-        <div class="review-author">
-          <div class="review-avatar">✨</div>
-          <div>
-            <div class="review-name">Алёна Кинсфатор</div>
-            <div class="review-role">групповая практика</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="review-card">
-        <div class="review-text">
-          <span>Это был для меня совершенно новый опыт работы с телом. Почувствовала энергию, день протекал энергично и бодро. Глубокие осознания о себе, о своей женственности и внутренних конфликтах.</span>
-        </div>
-        <div class="review-author">
-          <div class="review-avatar">💜</div>
-          <div>
-            <div class="review-name">Ирина Харченко</div>
-            <div class="review-role">практика свободного танца</div>
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>Даша, я в кайфе 🥰 Я от всего получаю удовольствие теперь. Утром бы наехала на мужа, а в тот момент мне просто было хорошо. Чтоб так меня прорвало — это что-то невероятное!</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">✨</div>
+        <div>
+          <div class="review-name">Алёна</div>
+          <div class="review-role">групповая практика</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>Это был для меня совершенно новый опыт работы с телом. Почувствовала энергию, день протекал энергично и бодро. Глубокие осознания о себе, о своей женственности и внутренних конфликтах.</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">💜</div>
+        <div>
+          <div class="review-name">Ирина</div>
+          <div class="review-role">практика свободного танца</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>После практики у меня мышцы на пояснице стали подвижные! Было очень приятно — и ощущение, что вокруг меня образуется какое-то женственное кольцо 🌸</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">🌿</div>
+        <div>
+          <div class="review-name">Екатерина</div>
+          <div class="review-role">телесная практика</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>После занятия — в ощущении наполненности энергии, как физической, так и ментальной. Голосовое сопровождение было настолько глубоким и чистым, что затягивало в целительную энергию!</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">⚡</div>
+        <div>
+          <div class="review-name">Инна</div>
+          <div class="review-role">групповое занятие</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>После нашей работы у меня −1 кг. Когда нагрузка идёт правильно — это чувствуется совсем иначе. Спасибо за такую тонкую работу с телом 🙏</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">🦋</div>
+        <div>
+          <div class="review-name">Екатерина Л.</div>
+          <div class="review-role">индивидуальная сессия</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- ═══════════════════════════ ОБО МНЕ ═══════════════════════════ -->
-<section class="section section-dark" id="about">
-  <div class="container">
-    <div class="tag tag-gold">Обо мне</div>
+<!-- ===== О ДАРЬЕ ===== -->
+<section class="about" id="about">
+  <div class="about-text">
+    <div class="section-eyebrow">О терапевте</div>
+    <div class="section-divider"></div>
     <h2>Дарья Щеголькова</h2>
-    <div class="divider divider-gold"></div>
-    <div class="about-layout">
-      <div class="about-photo">
-        <img src="darya.jpg" alt="Дарья Щеголькова" />
+    <p>Я искала себя восемь лет. Бизнес, курсы, всё что обещало «найти предназначение». Ничего не подходило. Потому что искала снаружи то, что живёт внутри.</p>
+    <p>Около 2020 года я начала танцевать — просто для себя. Никакой школы, никакого «надо правильно». Сначала было нелепо, я сама смеялась. Но <em>тело начало говорить — и я начала слышать.</em></p>
+    <p>Потом обнаружила кое-что неожиданное: я чувствую не только своё тело. Чужое тоже. Где остановка, где зажим, где что-то держит — это не прочитано по методичке. Это просто я.</p>
+    <p>В январе 2024 слегла с пневмонией на два месяца. Лежала и думала об одном: нельзя больше откладывать. Не «подожду правильного момента» — момент был давно. Просто пора.</p>
+    <p>Сегодня я работаю через тело, движение и голос. Каждое занятие другое — потому что каждая группа другая. <em>Я не несу готовую программу: я считываю что нужно именно этим людям прямо сейчас.</em></p>
+    <ul class="about-facts">
+      <li>Танцевально-двигательная терапия — группы и индивидуальные сессии</li>
+      <li>Работа с телом, энергиями и тонким планом</li>
+      <li>Висцеральный массаж, массаж стоп, запуск лимфы</li>
+      <li>Онлайн-интенсив «Расправь крылья»</li>
+      <li>Красноярск — вживую и онлайн по всему миру</li>
+    </ul>
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-num">4</span>
+        <span class="stat-label">года в практике</span>
       </div>
-      <div class="about-text">
-        <p>Энергопрактик, телесный терапевт. Помогаю женщинам восстановить живой контакт с собой — через тело, движение и энергию.</p>
-        <p>Мой путь к этому занял 8 лет. Бизнес-курсы, таро, нумерология, натальные карты — я искала ответ везде. Пока не поняла: <em>только Душа знает, зачем ты пришла в этот мир.</em></p>
-        <p>Однажды я начала танцевать — просто для себя. Не в школе, не по программе. Меня спрашивают: «Где ты так научилась?» Отвечаю: «Нигде. Я несколько лет налаживала контакт со своим телом».</p>
-        <p>На фестивале в Алтае случился прорыв: <em>тело стало сгустком энергии и осознанности</em>. Мысли как вспышки — возникали и гасли. Я была полностью здесь. Это стало моим пазлом — и я начала помогать другим найти своё.</p>
-        <p>Сегодня я работаю со звуком, движением и энергетическими потоками. Помогаю достать бессознательные блоки из телесной памяти — и освободить место для нового.</p>
-        <ul class="about-facts">
-          <li>Танцевально-двигательная терапия — групповые и индивидуальные занятия</li>
-          <li>Работа с телом, энергиями и тонким планом</li>
-          <li>Висцеральный массаж, массаж стоп, запуск лимфы</li>
-          <li>Онлайн-интенсив «Расправь крылья»</li>
-          <li>Красноярск — вживую и онлайн по всему миру</li>
-        </ul>
+      <div class="stat-item">
+        <span class="stat-num">100+</span>
+        <span class="stat-label">человек прошли<br>путь со мной</span>
       </div>
     </div>
   </div>
+  <div class="about-floral">
+    <svg style="position:absolute;top:-30px;left:-20px;width:140px;opacity:0.55;pointer-events:none;z-index:2;" viewBox="0 0 140 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M70,160 Q68,120 72,82 Q74,60 70,38 Q66,18 72,2" stroke="#8A6A9A" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M71,120 Q59,112 53,110" stroke="#8A6A9A" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M53,110 Q45,104 48,98 Q55,104 53,110Z" fill="#8A6A9A" opacity="0.38"/><path d="M71,80 Q83,73 89,71" stroke="#8A6A9A" stroke-width="1.3" fill="none" stroke-linecap="round"/><circle cx="72" cy="-4" r="5" fill="#C9A96E" opacity="0.72"/><circle cx="72" cy="-15" r="7" fill="#C8A2C8" opacity="0.62"/><circle cx="81" cy="-10" r="7" fill="#C8A2C8" opacity="0.58"/><circle cx="81" cy="2" r="7" fill="#C8A2C8" opacity="0.58"/><circle cx="72" cy="6" r="7" fill="#C8A2C8" opacity="0.58"/><circle cx="63" cy="2" r="7" fill="#C8A2C8" opacity="0.58"/><circle cx="63" cy="-10" r="7" fill="#C8A2C8" opacity="0.58"/></svg>
+    <img class="about-photo" src="photos/darya-lilac-bouquet.jpg" alt="Дарья Щеголькова">
+  </div>
 </section>
 
-<!-- ════════════════════════════ CTA ════════════════════════════ -->
-<section id="cta">
-  <h2>Готова начать путешествие к себе?</h2>
-  <p>Выбери удобный способ — напишу, отвечу быстро</p>
+<!-- ===== CTA ===== -->
+<section class="cta-section" id="cta">
+  <svg style="position:absolute;bottom:-40px;right:5%;width:240px;mix-blend-mode:multiply;opacity:0.70;pointer-events:none;" viewBox="0 0 240 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M120,260 Q118,200 122,145 Q124,108 120,72 Q116,40 122,12" stroke="#8A6A9A" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M121,200 Q106,190 98,188" stroke="#8A6A9A" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M98,188 Q88,181 91,174 Q99,180 98,188Z" fill="#8A6A9A" opacity="0.38"/><path d="M121,148 Q136,140 143,138" stroke="#8A6A9A" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M143,138 Q152,133 149,126 Q141,132 143,138Z" fill="#8A6A9A" opacity="0.38"/><circle cx="122" cy="4" r="7" fill="#C9A96E" opacity="0.75"/><circle cx="122" cy="-9" r="9" fill="#C8A2C8" opacity="0.65"/><circle cx="135" cy="-3" r="9" fill="#C8A2C8" opacity="0.60"/><circle cx="135" cy="11" r="9" fill="#C8A2C8" opacity="0.60"/><circle cx="122" cy="15" r="9" fill="#C8A2C8" opacity="0.60"/><circle cx="109" cy="11" r="9" fill="#C8A2C8" opacity="0.60"/><circle cx="109" cy="-3" r="9" fill="#C8A2C8" opacity="0.60"/><ellipse cx="105" cy="100" rx="7" ry="13" fill="#C97A82" opacity="0.58"/><circle cx="105" cy="88" r="6" fill="#C97A82" opacity="0.68"/><circle cx="118" cy="225" r="4.5" fill="#C8A2C8" opacity="0.62"/><circle cx="115" cy="213" r="3.5" fill="#C9A96E" opacity="0.55"/></svg>
+  <svg style="position:absolute;bottom:-40px;left:5%;width:200px;mix-blend-mode:multiply;opacity:0.62;pointer-events:none;transform:scaleX(-1);" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M100,220 Q98,168 102,118 Q104,84 100,54 Q96,26 102,4" stroke="#8A6A9A" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M101,168 Q88,160 81,158" stroke="#8A6A9A" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M81,158 Q72,152 75,145 Q83,151 81,158Z" fill="#8A6A9A" opacity="0.35"/><path d="M101,120 Q114,112 121,110" stroke="#8A6A9A" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="102" cy="-2" r="6" fill="#C9A96E" opacity="0.72"/><circle cx="102" cy="-14" r="8" fill="#C97A82" opacity="0.62"/><circle cx="113" cy="-8" r="8" fill="#C97A82" opacity="0.58"/><circle cx="113" cy="4" r="8" fill="#C97A82" opacity="0.58"/><circle cx="102" cy="8" r="8" fill="#C97A82" opacity="0.58"/><circle cx="91" cy="4" r="8" fill="#C97A82" opacity="0.58"/><circle cx="91" cy="-8" r="8" fill="#C97A82" opacity="0.58"/></svg>
+
+  <h2>Готова начать<br>путешествие к себе?</h2>
+  <p>Выбери удобный способ — напишу, отвечу быстро.</p>
   <div class="contact-grid">
     <a href="https://t.me/feyaDarya" class="contact-btn contact-btn-tg">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.247l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 13.617l-2.94-.918c-.64-.203-.654-.64.136-.954l11.49-4.43c.533-.194 1.001.133.617.932z"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.247l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 13.617l-2.94-.918c-.64-.203-.654-.64.136-.954l11.49-4.43c.533-.194 1.001.133.617.932z"/></svg>
       Telegram
     </a>
     <a href="https://vk.com/feyadarya" class="contact-btn contact-btn-vk">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.372 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.372 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z"/></svg>
       ВКонтакте
     </a>
-    <a href="https://vk.me/+79233665890" class="contact-btn contact-btn-max">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.5 7h-2.25v5.25h-4.5V9H7.5v7.5h9V9z"/></svg>
-      MAX
-    </a>
+    <a href="https://vk.me/+79233665890" class="contact-btn contact-btn-max">MAX</a>
     <a href="tel:+79233665890" class="contact-btn contact-btn-tel">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
       +7 923 366-58-90
     </a>
   </div>
-  <p style="margin-top:8px; font-family:sans-serif; font-size:13px; color:rgba(255,255,255,.3);">отвечаю быстро</p>
+  <p class="cta-note">Онлайн или офлайн в Красноярске · Отвечу быстро</p>
 </section>
 
-<!-- ════════════════════════════ FOOTER ════════════════════════════ -->
+<!-- ===== ФУТЕР ===== -->
 <footer>
-  <p>© 2025 Дарья Щеголькова · FreebodyMove · <a href="https://t.me/freebodymove">Telegram-канал</a> · <a href="https://t.me/feyaDarya">Написать в Telegram</a></p>
+  <div class="footer-logo">Free<span>body</span>Move</div>
+  <div class="footer-links">
+    <a href="https://t.me/freebodymove" target="_blank">Telegram-канал</a>
+    <a href="https://t.me/feyaDarya" target="_blank">Написать в TG</a>
+    <a href="https://vk.com/feyadarya" target="_blank">ВКонтакте</a>
+  </div>
+  <div class="footer-copy">© 2026 Дарья Щеголькова</div>
 </footer>
 
 </body>
