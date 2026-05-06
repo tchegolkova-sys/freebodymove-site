@@ -662,6 +662,93 @@
   }
   .footer-links a:hover { color:#C8A2C8; }
   .footer-copy { font-size:12px; color:#7A5A88; font-weight:300; }
+
+  /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+  @media (max-width: 768px) {
+
+    /* Навигация */
+    nav { padding:16px 20px; }
+    .nav-links { display:none; }
+
+    /* Hero */
+    .hero {
+      grid-template-columns:1fr;
+      padding:100px 24px 60px;
+      text-align:center;
+      min-height:auto;
+    }
+    .hero-content { order:2; }
+    .hero-photo-wrap { order:1; display:flex; justify-content:center; }
+    .hero-photo { max-width:280px; margin:0 auto; }
+    .hero h1 { font-size:38px; }
+    .hero-sub { font-size:15px; }
+    .hero-stats { justify-content:center; }
+    .btn-row { justify-content:center; }
+
+    /* Для кого */
+    .for-you { padding:60px 24px; }
+    .for-you-grid { grid-template-columns:1fr; gap:36px; }
+    .for-you h2 { font-size:36px; }
+    .for-you-watercolor { display:none; }
+
+    /* Трансформация */
+    .transform { padding:60px 24px; }
+    .transform h2 { font-size:36px; }
+    .transform-grid { grid-template-columns:1fr; }
+    .transform-col { border-radius:20px; }
+
+    /* Метод */
+    .method { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
+    .method-photo { max-width:100%; }
+    .method h2 { font-size:34px; }
+
+    /* Практики / Карточки услуг */
+    .practices { padding:60px 24px; }
+    .practices h2 { font-size:36px; }
+    .card-grid { grid-template-columns:1fr; }
+
+    /* Telegram */
+    .tg-section { padding:60px 24px; }
+    .tg-stats { grid-template-columns:repeat(2,1fr); }
+
+    /* Отзывы */
+    .reviews { padding:60px 24px; }
+    .reviews h2 { font-size:36px; }
+    .reviews-grid { grid-template-columns:1fr; }
+
+    /* О Дарье */
+    .about { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
+    .about-photo { max-width:100%; }
+    .about h2 { font-size:34px; }
+    .stats { gap:28px; }
+
+    /* Freedom strip */
+    .freedom-strip { min-height:420px; }
+    .freedom-quote { font-size:22px; padding:0 24px; }
+
+    /* CTA */
+    .cta-section { padding:80px 24px; }
+    .cta-section h2 { font-size:34px; }
+    .contact-buttons { flex-direction:column; align-items:center; }
+    .contact-btn { width:100%; max-width:320px; text-align:center; justify-content:center; }
+
+    /* Footer */
+    footer { padding:40px 24px; flex-direction:column; gap:20px; text-align:center; }
+    .footer-links { justify-content:center; gap:20px; }
+
+    /* Секции общие */
+    .section-eyebrow { font-size:9px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size:32px; }
+    .hero-photo { max-width:240px; }
+    .for-you h2, .transform h2, .practices h2, .reviews h2 { font-size:30px; }
+    .about h2, .method h2 { font-size:28px; }
+    .tg-stats { grid-template-columns:1fr; }
+    .freedom-quote { font-size:19px; }
+    .cta-section h2 { font-size:28px; }
+  }
 </style>
 </head>
 <body>
