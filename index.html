@@ -248,7 +248,7 @@
     font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:8px;
   }
   .practices-intro {
-    font-weight:300; font-size:16px; color:#5A4860;
+    font-weight:300; font-size:16px; color:#2E1E3A;
     margin-bottom:52px; max-width:560px; line-height:1.7;
   }
   .card-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
@@ -324,7 +324,7 @@
     font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:8px;
   }
   .video-section p {
-    font-weight:300; font-size:16px; color:#5A4860;
+    font-weight:300; font-size:16px; color:#2E1E3A;
     max-width:600px; line-height:1.7; margin-bottom:36px;
   }
   .video-poster {
@@ -374,7 +374,7 @@
     font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:16px;
   }
   .tg-section > p {
-    font-weight:300; font-size:17px; color:#5A4860;
+    font-weight:300; font-size:17px; color:#2E1E3A;
     max-width:520px; margin:0 auto 44px; line-height:1.7;
   }
   .tg-preview {
@@ -410,9 +410,45 @@
     font-style:italic; font-weight:300;
     font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:8px;
   }
+  /* ===== КАРУСЕЛЬ ОТЗЫВОВ ===== */
+  .reviews-filters {
+    display:flex; gap:8px; flex-wrap:wrap;
+    justify-content:center; margin-bottom:32px; margin-top:16px;
+  }
+  .reviews-filter-btn {
+    padding:9px 22px; border-radius:100px;
+    border:1.5px solid rgba(138,106,154,0.28);
+    background:transparent;
+    font-family:'Nunito',sans-serif; font-size:11px;
+    letter-spacing:0.14em; text-transform:uppercase;
+    color:#4A3558; cursor:pointer; transition:all 0.22s;
+    font-weight:300;
+  }
+  .reviews-filter-btn:hover { border-color:#8A6A9A; color:#3D2A48; }
+  .reviews-filter-btn.active { background:#8A6A9A; border-color:#8A6A9A; color:#fff; }
+
+  .reviews-carousel-wrap { position:relative; }
+  .reviews-carousel { overflow:hidden; }
   .reviews-grid {
-    display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:16px;
-    /* 6 карточек = 2 ряда по 3 */
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+    transition:opacity 0.22s ease;
+  }
+  .reviews-nav {
+    display:flex; align-items:center; justify-content:center;
+    gap:16px; margin-top:32px;
+  }
+  .reviews-arrow {
+    width:44px; height:44px; border-radius:50%;
+    background:#fff; border:1.5px solid rgba(138,106,154,0.28);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:all 0.22s; color:#3D2A48;
+    box-shadow:0 2px 10px rgba(138,106,154,0.10);
+  }
+  .reviews-arrow:hover { background:#8A6A9A; border-color:#8A6A9A; color:#fff; }
+  .reviews-arrow.disabled { opacity:0.25; pointer-events:none; }
+  .reviews-counter {
+    font-size:12px; color:#9A7AAA; font-weight:300;
+    letter-spacing:0.1em; min-width:40px; text-align:center;
   }
   .review-card {
     background:#fff; border-radius:24px; padding:32px 28px;
@@ -453,7 +489,7 @@
     font-size:48px; line-height:1.2; color:#3D2A48; margin-bottom:32px;
   }
   .about-text p {
-    font-weight:300; font-size:16px; line-height:1.8; color:#5A4860; margin-bottom:18px;
+    font-weight:300; font-size:16px; line-height:1.8; color:#2E1E3A; margin-bottom:18px;
   }
   .about-text p em { color:#C97A82; font-style:italic; }
   .about-facts { list-style:none; margin-top:28px; display:flex; flex-direction:column; gap:10px; }
@@ -468,7 +504,7 @@
     font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
     font-size:48px; color:#8A6A9A; line-height:1;
   }
-  .stat-label { font-size:13px; color:#5A4860; font-weight:300; line-height:1.4; }
+  .stat-label { font-size:13px; color:#2E1E3A; font-weight:300; line-height:1.4; }
   .about-floral { display:flex; justify-content:center; position:relative; }
   .about-floral::before {
     content:''; position:absolute; width:420px; height:420px; border-radius:50%;
@@ -529,7 +565,7 @@
     display:flex; align-items:center; justify-content:center;
     color:#8A6A9A; font-size:16px; flex-shrink:0;
   }
-  .card-video-text { font-size:14px; font-weight:300; color:#5A4860; line-height:1.4; }
+  .card-video-text { font-size:14px; font-weight:300; color:#2E1E3A; line-height:1.4; }
   .card-video-hint { font-size:11px; color:#9A7AAA; margin-top:3px; letter-spacing:0.06em; }
 
   /* ===== БОТАНИЧЕСКИЕ ОКАНТОВКИ ===== */
@@ -574,7 +610,7 @@
   .for-you .section-eyebrow, .for-you .section-divider, .for-you .for-you-grid { position:relative; z-index:2; }
   .transform .section-eyebrow, .transform .section-divider, .transform h2, .transform .transform-grid { position:relative; z-index:2; }
   .practices .section-eyebrow, .practices .section-divider, .practices h2, .practices .practices-intro, .practices .card-grid { position:relative; z-index:2; }
-  .reviews .section-eyebrow, .reviews .section-divider, .reviews h2, .reviews .reviews-grid { position:relative; z-index:2; }
+  .reviews .section-eyebrow, .reviews .section-divider, .reviews h2, .reviews .reviews-filters, .reviews .reviews-carousel-wrap, .reviews .reviews-nav { position:relative; z-index:2; }
   /* Акварельные иконки карточек — без белого фона */
   .card-icon { width:110px; height:110px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; }
   .card-icon img {
@@ -607,7 +643,7 @@
   }
   .cta-section > p {
     font-weight:300; font-size:17px; line-height:1.7;
-    color:#5A4860; max-width:520px; margin:0 auto 48px; position:relative;
+    color:#2E1E3A; max-width:520px; margin:0 auto 48px; position:relative;
   }
   .cta-flower {
     position:absolute; bottom:-40px; right:5%;
@@ -715,6 +751,8 @@
     .reviews { padding:60px 24px; }
     .reviews h2 { font-size:36px; }
     .reviews-grid { grid-template-columns:1fr; }
+    .reviews-filters { gap:6px; }
+    .reviews-filter-btn { padding:7px 14px; font-size:10px; }
 
     /* О Дарье */
     .about { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
@@ -892,7 +930,7 @@
       <div class="card-body" style="padding-top:44px;">
         <div class="card-stripe" style="background:linear-gradient(90deg,#C8A2C8,#8A6A9A);"></div>
         <div class="card-icon"><img src="photos/icon-dance.jpg" alt="Танцовщица"></div>
-        <div class="card-tag" style="color:#8A6A9A;">Группа · каждую среду</div>
+        <div class="card-tag" style="color:#8A6A9A;">Группа · каждый вторник</div>
         <h3>Танцевально-двигательная терапия</h3>
         <p>Групповые занятия — освобождаем блоки и зажимы через движение. Это не хореография, а живой разговор с телом. Каждое занятие — новая тема и новое открытие о себе.</p>
         <a href="https://vk.ru/clip96147967_456241653" target="_blank" class="card-video-preview">
@@ -965,177 +1003,201 @@
   <div class="section-eyebrow">Отзывы</div>
   <div class="section-divider"></div>
   <h2>Что говорят после практик</h2>
-  <div class="reviews-grid">
+  <!-- Фильтры категорий -->
+  <div class="reviews-filters">
+    <button class="reviews-filter-btn active" data-filter="all">Все</button>
+    <button class="reviews-filter-btn" data-filter="individual">Индивидуально</button>
+    <button class="reviews-filter-btn" data-filter="dance">Танцевальная терапия</button>
+    <button class="reviews-filter-btn" data-filter="body">Телесная практика</button>
+  </div>
 
-    <div class="review-card">
-      <div class="review-text">
-        <span>После работы с Дашей почувствовала расслабление, мысли успокоились, хотелось молчать 🧘‍♀️ Тело раскрывалось, пошли слёзы. Через месяц: появилось много энергии и желания действовать 🔥</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">🌸</div>
-        <div>
-          <div class="review-name">Анастасия</div>
-          <div class="review-role">индивидуальная работа</div>
+  <!-- Карусель -->
+  <div class="reviews-carousel-wrap">
+    <div class="reviews-carousel">
+      <div class="reviews-grid">
+
+        <div class="review-card" data-category="individual">
+          <div class="review-text">
+            <span>После работы с Дашей почувствовала расслабление, мысли успокоились, хотелось молчать 🧘‍♀️ Тело раскрывалось, пошли слёзы. Через месяц: появилось много энергии и желания действовать 🔥</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">🌸</div>
+            <div>
+              <div class="review-name">Анастасия</div>
+              <div class="review-role">индивидуальная работа</div>
+            </div>
+          </div>
         </div>
+
+        <div class="review-card" data-category="individual">
+          <div class="review-text">
+            <span>После нашей работы у меня −1 кг. Когда нагрузка идёт правильно — это чувствуется совсем иначе. Спасибо за такую тонкую работу с телом 🙏</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">🦋</div>
+            <div>
+              <div class="review-name">Екатерина Л.</div>
+              <div class="review-role">индивидуальная сессия</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="individual">
+          <div class="review-text">
+            <span>Мышцы на пояснице стали подвижные — я сегодня почувствовала там движение и офигела от неожиданности. Наклоняюсь — и поясница двигается! Когда с Дашей — тело работает правильно и нагрузка идёт куда надо.</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">🌸</div>
+            <div>
+              <div class="review-name">Катя К.</div>
+              <div class="review-role">индивидуальная сессия</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="individual">
+          <div class="review-text">
+            <span>То что происходило у Даши — у меня точно такое впервые, никогда подобного не испытывала. Зашла с одной реальности, а вышла в другую. Почувствовала как стала значительно больше — и в ширину, и в высоту. Абсолютное доверие к Богу, к Миру. Моя внутренняя девочка наконец счастлива.</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">✨</div>
+            <div>
+              <div class="review-name">Виктория</div>
+              <div class="review-role">индивидуальная сессия</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="individual">
+          <div class="review-text">
+            <span>Внутри правда появилась гармония, чистота, я просто есть и я счастлива. Реально понимаю какой это кайф — быть собой, в своём теле. А спустя полгода — истинный глубинный запрос раскрылся сам.</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">🌿</div>
+            <div>
+              <div class="review-name">Ольга М.</div>
+              <div class="review-role">индивидуальная сессия</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="individual">
+          <div class="review-text">
+            <span>После сессии обрела внутреннее спокойствие и посмотрела на ситуацию под другим углом. Всё разрешилось наилучшим образом — поехала на конференцию, а там оказались люди чётко по моему запросу.</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">🕊️</div>
+            <div>
+              <div class="review-name">Любовь</div>
+              <div class="review-role">индивидуальная сессия</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="dance">
+          <div class="review-text">
+            <span>Даша, я в кайфе 🥰 Я от всего получаю удовольствие теперь. Утром бы наехала на мужа, а в тот момент мне просто было хорошо. Чтоб так меня прорвало — это что-то невероятное!</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">✨</div>
+            <div>
+              <div class="review-name">Алёна</div>
+              <div class="review-role">групповая практика</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="dance">
+          <div class="review-text">
+            <span>Это был для меня совершенно новый опыт работы с телом. Почувствовала энергию, день протекал энергично и бодро. Глубокие осознания о себе, о своей женственности и внутренних конфликтах.</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">💜</div>
+            <div>
+              <div class="review-name">Ирина</div>
+              <div class="review-role">практика свободного танца</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="dance">
+          <div class="review-text">
+            <span>После занятия — в ощущении наполненности энергии, как физической, так и ментальной. Голосовое сопровождение было настолько глубоким и чистым, что затягивало в целительную энергию!</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">⚡</div>
+            <div>
+              <div class="review-name">Инна</div>
+              <div class="review-role">групповое занятие</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="body">
+          <div class="review-text">
+            <span>После практики у меня мышцы на пояснице стали подвижные! Было очень приятно — и ощущение, что вокруг меня образуется какое-то женственное кольцо 🌸</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">🌿</div>
+            <div>
+              <div class="review-name">Екатерина</div>
+              <div class="review-role">телесная практика</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="body">
+          <div class="review-text">
+            <span>Это был совершенно новый опыт работы с телом — чувствовала энергию розы. Когда было сопровождение звука — это было словно поющей чашей на макушке работали, и шла вибрация по всему телу. День протекает энергично и бодро.</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">🌹</div>
+            <div>
+              <div class="review-name">Анастасия Ф.</div>
+              <div class="review-role">телесная практика</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="body">
+          <div class="review-text">
+            <span>Шла с одним намерением, а проработали другую тему. Вышла в хорошем настроении, на душе умиротворение. Вечером ныла спина — тело откликнулось. Наше тело очень благодарное и быстро откликается на внимание и заботу.</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">🌾</div>
+            <div>
+              <div class="review-name">Олеся Э.</div>
+              <div class="review-role">психоэмоциональная трансформация</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card" data-category="body">
+          <div class="review-text">
+            <span>Ключ ко всему — СОСТОЯНИЕ. Как не кричать на мужа и получать от всего удовольствие. Когда даже привычная еда становится вкуснее. Как убрать боль в спине и ощутить небывалую лёгкость — без похода к массажисту.</span>
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">🌻</div>
+            <div>
+              <div class="review-name">Алёна</div>
+              <div class="review-role">работа с состоянием</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="review-card">
-      <div class="review-text">
-        <span>Даша, я в кайфе 🥰 Я от всего получаю удовольствие теперь. Утром бы наехала на мужа, а в тот момент мне просто было хорошо. Чтоб так меня прорвало — это что-то невероятное!</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">✨</div>
-        <div>
-          <div class="review-name">Алёна</div>
-          <div class="review-role">групповая практика</div>
-        </div>
-      </div>
+    <!-- Навигация -->
+    <div class="reviews-nav">
+      <button class="reviews-arrow reviews-arrow-prev" aria-label="Назад">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="reviews-counter"></span>
+      <button class="reviews-arrow reviews-arrow-next" aria-label="Вперёд">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>Это был для меня совершенно новый опыт работы с телом. Почувствовала энергию, день протекал энергично и бодро. Глубокие осознания о себе, о своей женственности и внутренних конфликтах.</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">💜</div>
-        <div>
-          <div class="review-name">Ирина</div>
-          <div class="review-role">практика свободного танца</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>После практики у меня мышцы на пояснице стали подвижные! Было очень приятно — и ощущение, что вокруг меня образуется какое-то женственное кольцо 🌸</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">🌿</div>
-        <div>
-          <div class="review-name">Екатерина</div>
-          <div class="review-role">телесная практика</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>После занятия — в ощущении наполненности энергии, как физической, так и ментальной. Голосовое сопровождение было настолько глубоким и чистым, что затягивало в целительную энергию!</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">⚡</div>
-        <div>
-          <div class="review-name">Инна</div>
-          <div class="review-role">групповое занятие</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>После нашей работы у меня −1 кг. Когда нагрузка идёт правильно — это чувствуется совсем иначе. Спасибо за такую тонкую работу с телом 🙏</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">🦋</div>
-        <div>
-          <div class="review-name">Екатерина Л.</div>
-          <div class="review-role">индивидуальная сессия</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>Мышцы на пояснице стали подвижные — я сегодня почувствовала там движение и офигела от неожиданности. Наклоняюсь — и поясница двигается! Когда с Дашей — тело работает правильно и нагрузка идёт куда надо.</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">🌸</div>
-        <div>
-          <div class="review-name">Катя К.</div>
-          <div class="review-role">индивидуальная сессия</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>То что происходило у Даши — у меня точно такое впервые, никогда подобного не испытывала. Зашла с одной реальности, а вышла в другую. Почувствовала как стала значительно больше — и в ширину, и в высоту. Абсолютное доверие к Богу, к Миру. Моя внутренняя девочка наконец счастлива.</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">✨</div>
-        <div>
-          <div class="review-name">Виктория</div>
-          <div class="review-role">индивидуальная сессия</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>Это был совершенно новый опыт работы с телом — чувствовала энергию розы. Когда было сопровождение звука — это было словно поющей чашей на макушке работали, и шла вибрация по всему телу. День протекает энергично и бодро.</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">🌹</div>
-        <div>
-          <div class="review-name">Анастасия Ф.</div>
-          <div class="review-role">телесная практика</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>Внутри правда появилась гармония, чистота, я просто есть и я счастлива. Реально понимаю какой это кайф — быть собой, в своём теле. А спустя полгода — истинный глубинный запрос раскрылся сам.</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">🌿</div>
-        <div>
-          <div class="review-name">Ольга М.</div>
-          <div class="review-role">индивидуальная сессия</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>После сессии обрела внутреннее спокойствие и посмотрела на ситуацию под другим углом. Всё разрешилось наилучшим образом — поехала на конференцию, а там оказались люди чётко по моему запросу.</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">🕊️</div>
-        <div>
-          <div class="review-name">Любовь</div>
-          <div class="review-role">индивидуальная сессия</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>Шла с одним намерением, а проработали другую тему. Вышла в хорошем настроении, на душе умиротворение. Вечером ныла спина — тело откликнулось. Наше тело очень благодарное и быстро откликается на внимание и заботу.</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">🌾</div>
-        <div>
-          <div class="review-name">Олеся Э.</div>
-          <div class="review-role">психоэмоциональная трансформация</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-text">
-        <span>Ключ ко всему — СОСТОЯНИЕ. Как не кричать на мужа и получать от всего удовольствие. Когда даже привычная еда становится вкуснее. Как убрать боль в спине и ощутить небывалую лёгкость — без похода к массажисту.</span>
-      </div>
-      <div class="review-author">
-        <div class="review-avatar">🌻</div>
-        <div>
-          <div class="review-name">Алёна</div>
-          <div class="review-role">работа с состоянием</div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -1210,5 +1272,74 @@
   <div class="footer-copy">© 2026 Дарья Щеголькова</div>
 </footer>
 
+<script>
+// ===== КАРУСЕЛЬ ОТЗЫВОВ =====
+(function() {
+  var cards = Array.from(document.querySelectorAll('.review-card'));
+  var filterBtns = document.querySelectorAll('.reviews-filter-btn');
+  var prevBtn = document.querySelector('.reviews-arrow-prev');
+  var nextBtn = document.querySelector('.reviews-arrow-next');
+  var counter = document.querySelector('.reviews-counter');
+
+  var activeFilter = 'all';
+  var currentPage = 0;
+
+  function isMobile() { return window.innerWidth <= 768; }
+  function perPage() { return isMobile() ? 1 : 3; }
+
+  function getFiltered() {
+    return cards.filter(function(c) {
+      return activeFilter === 'all' || c.dataset.category === activeFilter;
+    });
+  }
+
+  function render() {
+    var vis = getFiltered();
+    var pp = perPage();
+    var totalPages = Math.ceil(vis.length / pp);
+    if (currentPage >= totalPages) currentPage = Math.max(0, totalPages - 1);
+
+    // Скрыть все
+    cards.forEach(function(c) { c.style.display = 'none'; });
+
+    // Показать только текущую страницу
+    var slice = vis.slice(currentPage * pp, (currentPage + 1) * pp);
+    slice.forEach(function(c) { c.style.display = ''; });
+
+    // Стрелки
+    prevBtn.classList.toggle('disabled', currentPage <= 0);
+    nextBtn.classList.toggle('disabled', currentPage >= totalPages - 1);
+
+    // Счётчик
+    if (counter) {
+      counter.textContent = totalPages > 1 ? (currentPage + 1) + ' / ' + totalPages : '';
+    }
+  }
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      currentPage = 0;
+      render();
+    });
+  });
+
+  prevBtn.addEventListener('click', function() {
+    if (currentPage > 0) { currentPage--; render(); }
+  });
+
+  nextBtn.addEventListener('click', function() {
+    var vis = getFiltered();
+    var totalPages = Math.ceil(vis.length / perPage());
+    if (currentPage < totalPages - 1) { currentPage++; render(); }
+  });
+
+  window.addEventListener('resize', function() { render(); });
+
+  render();
+})();
+</script>
 </body>
 </html>
