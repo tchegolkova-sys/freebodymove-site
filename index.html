@@ -575,24 +575,17 @@
   .transform .section-eyebrow, .transform .section-divider, .transform h2, .transform .transform-grid { position:relative; z-index:2; }
   .practices .section-eyebrow, .practices .section-divider, .practices h2, .practices .practices-intro, .practices .card-grid { position:relative; z-index:2; }
   .reviews .section-eyebrow, .reviews .section-divider, .reviews h2, .reviews .reviews-grid { position:relative; z-index:2; }
-  /* Акварельные иконки карточек */
-  .card-icon { width:100px; height:100px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; }
-  .card-icon img { width:100px; height:100px; object-fit:contain; border-radius:0; transition: filter 0.35s ease; }
-  /* Neon glow — по цвету карточки */
-  .card:nth-child(1) .card-icon img {
-    filter: drop-shadow(0 0 8px rgba(200,162,200,0.7)) drop-shadow(0 0 20px rgba(138,106,154,0.45));
-  }
-  .card:nth-child(2) .card-icon img {
-    filter: drop-shadow(0 0 8px rgba(240,192,200,0.7)) drop-shadow(0 0 20px rgba(201,122,130,0.45));
-  }
-  .card:nth-child(3) .card-icon img {
-    filter: drop-shadow(0 0 8px rgba(240,216,154,0.75)) drop-shadow(0 0 20px rgba(201,169,110,0.55));
-  }
-  .card:nth-child(4) .card-icon img {
-    filter: drop-shadow(0 0 8px rgba(200,162,200,0.7)) drop-shadow(0 0 20px rgba(201,122,130,0.45));
+  /* Акварельные иконки карточек — без белого фона */
+  .card-icon { width:110px; height:110px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; }
+  .card-icon img {
+    width:110px; height:110px;
+    object-fit:contain;
+    mix-blend-mode:multiply;
+    transition: transform 0.35s ease, opacity 0.35s ease;
   }
   .card:hover .card-icon img {
-    filter: drop-shadow(0 0 14px rgba(200,162,200,0.95)) drop-shadow(0 0 32px rgba(138,106,154,0.75)) !important;
+    transform: scale(1.07);
+    opacity: 0.9;
   }
 
   /* ===== ФИНАЛЬНЫЙ CTA ===== */
@@ -731,11 +724,11 @@
     </div>
     <div>
       <ul class="pain-list">
-        <li>Живёшь из «надо», а не из «хочу» — своё в конце очереди</li>
-        <li>Делаешь для всех — себе остаётся что-то, если вообще остаётся</li>
-        <li>Тело несёт тебя, но ты его не слышишь</li>
-        <li>Мысли не останавливаются — голова всегда занята</li>
-        <li>Хочется выдохнуть и почувствовать: это я, не моя роль</li>
+        <li>Что-то откликнулось — но голова сразу: «зачем, не умею, не моё»</li>
+        <li>Как будто себе не доверяешь — желания есть, а дорогу им не открываешь</li>
+        <li>Я мама, сотрудник, жена. Но просто я — где-то в конце списка</li>
+        <li>Хочется своего — не обязательно большого. Просто своего, прямо сейчас</li>
+        <li>Внутри что-то держит — назвать не можешь, но чувствуешь</li>
       </ul>
     </div>
   </div>
@@ -751,11 +744,11 @@
   <div class="transform-grid">
     <div class="transform-col transform-before">
       <div class="transform-label">Было</div>
-      <div class="t-item"><div class="t-dot"></div><span>Делаешь много — для всех, себе в конце</span></div>
-      <div class="t-item"><div class="t-dot"></div><span>Тело несёт тебя, но ты его не чувствуешь</span></div>
-      <div class="t-item"><div class="t-dot"></div><span>Живёшь «из надо», а не «из хочу»</span></div>
-      <div class="t-item"><div class="t-dot"></div><span>Мысли не останавливаются</span></div>
-      <div class="t-item"><div class="t-dot"></div><span>Хочется чего-то своего — но оно откладывается</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Тело как инструмент — несёт, везёт, работает. Ощущений почти не слышишь</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Есть внутренний блок — на слёзы, на глубину, на «это для меня»</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>«Надо» заполняет всё — своё откладывается до лучших времён</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Даже отдых не восстанавливает — встаёшь такой же пустой</span></div>
+      <div class="t-item"><div class="t-dot"></div><span>Зажатость в плечах, дыхание неглубокое — уже привыкла не замечать</span></div>
       <div class="t-item"><div class="t-dot"></div><span>Отношения — на автопилоте</span></div>
     </div>
     <div class="transform-col transform-after">
@@ -961,6 +954,97 @@
         <div>
           <div class="review-name">Екатерина Л.</div>
           <div class="review-role">индивидуальная сессия</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>Мышцы на пояснице стали подвижные — я сегодня почувствовала там движение и офигела от неожиданности. Наклоняюсь — и поясница двигается! Когда с Дашей — тело работает правильно и нагрузка идёт куда надо.</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">🌸</div>
+        <div>
+          <div class="review-name">Катя Карасева</div>
+          <div class="review-role">индивидуальная сессия</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>То что происходило у Даши — у меня точно такое впервые, никогда подобного не испытывала. Зашла с одной реальности, а вышла в другую. Почувствовала как стала значительно больше — и в ширину, и в высоту. Абсолютное доверие к Богу, к Миру. Моя внутренняя девочка наконец счастлива.</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">✨</div>
+        <div>
+          <div class="review-name">Виктория</div>
+          <div class="review-role">индивидуальная сессия</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>Это был совершенно новый опыт работы с телом — чувствовала энергию розы. Когда было сопровождение звука — это было словно поющей чашей на макушке работали, и шла вибрация по всему телу. День протекает энергично и бодро.</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">🌹</div>
+        <div>
+          <div class="review-name">Анастасия Федонцевич</div>
+          <div class="review-role">телесная практика</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>Внутри правда появилась гармония, чистота, я просто есть и я счастлива. Реально понимаю какой это кайф — быть собой, в своём теле. А спустя полгода — истинный глубинный запрос раскрылся сам.</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">🌿</div>
+        <div>
+          <div class="review-name">Ольга Малышенко</div>
+          <div class="review-role">индивидуальная сессия</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>После сессии обрела внутреннее спокойствие и посмотрела на ситуацию под другим углом. Всё разрешилось наилучшим образом — поехала на конференцию, а там оказались люди чётко по моему запросу.</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">🕊️</div>
+        <div>
+          <div class="review-name">Любовь</div>
+          <div class="review-role">индивидуальная сессия</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>Шла с одним намерением, а проработали другую тему. Вышла в хорошем настроении, на душе умиротворение. Вечером ныла спина — тело откликнулось. Наше тело очень благодарное и быстро откликается на внимание и заботу.</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">🌾</div>
+        <div>
+          <div class="review-name">Олеся Эмилова</div>
+          <div class="review-role">психоэмоциональная трансформация</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-text">
+        <span>Ключ ко всему — СОСТОЯНИЕ. Как не кричать на мужа и получать от всего удовольствие. Когда даже привычная еда становится вкуснее. Как убрать боль в спине и ощутить небывалую лёгкость — без похода к массажисту.</span>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">🌻</div>
+        <div>
+          <div class="review-name">Алёна</div>
+          <div class="review-role">работа с состоянием</div>
         </div>
       </div>
     </div>
