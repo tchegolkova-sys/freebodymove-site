@@ -787,6 +787,73 @@
     .freedom-quote { font-size:19px; }
     .cta-section h2 { font-size:28px; }
   }
+
+  /* ===== МИНИ-КАРУСЕЛЬ ОТЗЫВОВ В КАРТОЧКАХ ===== */
+  .card-reviews-toggle {
+    display:flex; align-items:center; gap:8px;
+    font-family:'Nunito',sans-serif; font-size:11px;
+    font-weight:300; letter-spacing:0.14em; text-transform:uppercase;
+    color:#8A6A9A; background:transparent;
+    border:1.5px solid rgba(138,106,154,0.28);
+    padding:10px 20px; border-radius:100px; cursor:pointer;
+    transition:all 0.22s; width:100%; justify-content:center;
+    margin-top:8px;
+  }
+  .card-reviews-toggle:hover { background:rgba(138,106,154,0.06); border-color:#8A6A9A; }
+  .card-reviews-toggle.open { background:rgba(138,106,154,0.08); border-color:#8A6A9A; }
+  .card-reviews-toggle .toggle-arrow { transition:transform 0.22s; display:inline-block; }
+  .card-reviews-toggle.open .toggle-arrow { transform:rotate(180deg); }
+
+  .card-reviews-panel {
+    margin-top:16px; padding-top:16px;
+    border-top:1px solid rgba(200,162,200,0.2);
+    display:none;
+  }
+  .card-reviews-panel.open { display:block; }
+
+  .card-mini-review { display:none; }
+  .card-mini-review.active { display:block; }
+
+  .card-mini-text {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:400;
+    font-size:15px; line-height:1.65; color:#2A1E35;
+    margin-bottom:12px; position:relative; padding-top:16px;
+  }
+  .card-mini-text::before {
+    content:'«'; font-size:38px; color:#F0EBF8;
+    position:absolute; top:-4px; left:-2px;
+    font-family:'Cormorant Garamond',serif; line-height:1;
+  }
+  .card-mini-text span { position:relative; z-index:1; }
+
+  .card-mini-author { display:flex; align-items:center; gap:8px; }
+  .card-mini-avatar {
+    width:30px; height:30px; border-radius:50%;
+    background:linear-gradient(135deg,#F0EBF8,#FEF0F6);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; flex-shrink:0;
+    border:1px solid rgba(200,162,200,0.25);
+  }
+  .card-mini-name { font-size:13px; font-weight:400; color:#3D2A48; }
+  .card-mini-role { font-size:11px; color:#9A7AAA; font-weight:300; margin-top:1px; }
+
+  .card-reviews-nav {
+    display:flex; align-items:center; justify-content:center;
+    gap:12px; margin-top:12px;
+  }
+  .card-mini-arrow {
+    width:32px; height:32px; border-radius:50%;
+    background:#fff; border:1px solid rgba(138,106,154,0.25);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:all 0.2s; color:#3D2A48;
+    box-shadow:0 2px 8px rgba(138,106,154,0.08);
+  }
+  .card-mini-arrow:hover { background:#8A6A9A; border-color:#8A6A9A; color:#fff; }
+  .card-mini-arrow:disabled { opacity:0.25; pointer-events:none; }
+  .card-mini-counter {
+    font-size:11px; color:#9A7AAA; font-weight:300;
+    letter-spacing:0.1em; min-width:36px; text-align:center;
+  }
 </style>
 </head>
 <body>
@@ -940,6 +1007,67 @@
             <div class="card-video-hint">VK Видео →</div>
           </div>
         </a>
+        <button class="card-reviews-toggle" data-card-id="tdt" aria-expanded="false">
+          <span class="toggle-arrow">▾</span>
+          <span>Что говорят участницы</span>
+        </button>
+        <div class="card-reviews-panel" id="panel-tdt">
+          <div class="card-mini-review active">
+            <div class="card-mini-text"><span>Это такое удовольствие и облегчение — выгрузить из себя разные напряжения и блоки с помощью танцевальных движений, которые у каждой свои, именно такие, которые сейчас нужны телу ❤️</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">💃</div>
+              <div>
+                <div class="card-mini-name">Юлия К.</div>
+                <div class="card-mini-role">танцевально-двигательная терапия</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Я так долго собиралась попасть на танцетерапию. А тут всё легко получилось — и главное вовремя. Это совершенно новое, более глубокое ощущение от танца. Ты слушаешь музыку, а тело само создаёт свой рисунок. Спасибо, что создала такое бережное пространство.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌸</div>
+              <div>
+                <div class="card-mini-name">Олеся В.</div>
+                <div class="card-mini-role">танцевально-двигательная терапия</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Я сегодня хотела выпустить, вытанцевать обиду на одного человека — и твоё сопровождение и поддержка мне очень помогли ❤️ Не пожалела, что пришла в такой мороз.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🕊️</div>
+              <div>
+                <div class="card-mini-name">Юлия К.</div>
+                <div class="card-mini-role">танцевально-двигательная терапия</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Это был для меня совершенно новый опыт работы с телом. Почувствовала энергию, день протекал энергично и бодро. Глубокие осознания о себе, о своей женственности и внутренних конфликтах.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">💜</div>
+              <div>
+                <div class="card-mini-name">Ирина</div>
+                <div class="card-mini-role">практика свободного танца</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>После занятия — в ощущении наполненности энергии, как физической, так и ментальной. Голосовое сопровождение было настолько глубоким и чистым, что затягивало в целительную энергию!</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">⚡</div>
+              <div>
+                <div class="card-mini-name">Инна</div>
+                <div class="card-mini-role">групповое занятие</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-reviews-nav">
+            <button class="card-mini-arrow" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <span class="card-mini-counter">1 / 5</span>
+            <button class="card-mini-arrow" aria-label="Вперёд"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -950,6 +1078,137 @@
         <div class="card-tag" style="color:#C97A82;">Индивидуально</div>
         <h3>Индивидуальная работа с запросом</h3>
         <p>Работаем с твоим конкретным запросом через тело, энергии и считывание. Онлайн и вживую. Причинно-следственные связи не всегда очевидны — я работаю не от ума.</p>
+        <button class="card-reviews-toggle" data-card-id="individual" aria-expanded="false">
+          <span class="toggle-arrow">▾</span>
+          <span>Что говорят клиентки</span>
+        </button>
+        <div class="card-reviews-panel" id="panel-individual">
+          <div class="card-mini-review active">
+            <div class="card-mini-text"><span>После работы с Дашей почувствовала расслабление, мысли успокоились, хотелось молчать 🧘‍♀️ Тело раскрывалось, пошли слёзы. Через месяц: появилось много энергии и желания действовать 🔥</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌸</div>
+              <div>
+                <div class="card-mini-name">Анастасия</div>
+                <div class="card-mini-role">индивидуальная работа</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>После нашей работы у меня −1 кг. Когда нагрузка идёт правильно — это чувствуется совсем иначе. Спасибо за такую тонкую работу с телом 🙏</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🦋</div>
+              <div>
+                <div class="card-mini-name">Екатерина Л.</div>
+                <div class="card-mini-role">индивидуальная сессия</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Мышцы на пояснице стали подвижные — я сегодня почувствовала там движение и офигела от неожиданности. Наклоняюсь — и поясница двигается! Когда с Дашей — тело работает правильно и нагрузка идёт куда надо.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌸</div>
+              <div>
+                <div class="card-mini-name">Катя К.</div>
+                <div class="card-mini-role">индивидуальная сессия</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>То что происходило у Даши — у меня точно такое впервые, никогда подобного не испытывала. Зашла с одной реальности, а вышла в другую. Почувствовала как стала значительно больше — и в ширину, и в высоту. Абсолютное доверие к Богу, к Миру. Моя внутренняя девочка наконец счастлива.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">✨</div>
+              <div>
+                <div class="card-mini-name">Виктория</div>
+                <div class="card-mini-role">индивидуальная сессия</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Внутри правда появилась гармония, чистота, я просто есть и я счастлива. Реально понимаю какой это кайф — быть собой, в своём теле. А спустя полгода — истинный глубинный запрос раскрылся сам.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌿</div>
+              <div>
+                <div class="card-mini-name">Ольга М.</div>
+                <div class="card-mini-role">индивидуальная сессия</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>После сессии обрела внутреннее спокойствие и посмотрела на ситуацию под другим углом. Всё разрешилось наилучшим образом — поехала на конференцию, а там оказались люди чётко по моему запросу.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🕊️</div>
+              <div>
+                <div class="card-mini-name">Любовь</div>
+                <div class="card-mini-role">индивидуальная сессия</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Я тебе ещё отзыв не написала, вся в делах, но у меня такие новые смыслы открываются — просто вау 🤩 Я поняла, для чего мне был нужен мой прошлый опыт и каким образом через меня мир помогает людям.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌿</div>
+              <div>
+                <div class="card-mini-name">Ольга М.</div>
+                <div class="card-mini-role">индивидуальная работа</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Даша, я в кайфе 🥰 Я от всего получаю удовольствие теперь. Утром бы наехала на мужа, а в тот момент мне просто было хорошо. Чтоб так меня прорвало — это что-то невероятное!</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">✨</div>
+              <div>
+                <div class="card-mini-name">Алёна</div>
+                <div class="card-mini-role">индивидуальная работа</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>После практики у меня мышцы на пояснице стали подвижные! Было очень приятно — и ощущение, что вокруг меня образуется какое-то женственное кольцо 🌸</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌿</div>
+              <div>
+                <div class="card-mini-name">Екатерина</div>
+                <div class="card-mini-role">телесная практика</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Это был совершенно новый опыт работы с телом — чувствовала энергию розы. Когда было сопровождение звука — это было словно поющей чашей на макушке работали, и шла вибрация по всему телу. День протекает энергично и бодро.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌹</div>
+              <div>
+                <div class="card-mini-name">Анастасия Ф.</div>
+                <div class="card-mini-role">телесная практика</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Шла с одним намерением, а проработали другую тему. Вышла в хорошем настроении, на душе умиротворение. Наше тело очень благодарное и быстро откликается на внимание и заботу.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌾</div>
+              <div>
+                <div class="card-mini-name">Олеся Э.</div>
+                <div class="card-mini-role">психоэмоциональная трансформация</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Ключ ко всему — СОСТОЯНИЕ. Как не кричать на мужа и получать от всего удовольствие. Когда даже привычная еда становится вкуснее. Как убрать боль в спине и ощутить небывалую лёгкость — без похода к массажисту.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌻</div>
+              <div>
+                <div class="card-mini-name">Алёна</div>
+                <div class="card-mini-role">работа с состоянием</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-reviews-nav">
+            <button class="card-mini-arrow" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <span class="card-mini-counter">1 / 12</span>
+            <button class="card-mini-arrow" aria-label="Вперёд"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -970,6 +1229,67 @@
         <div class="card-tag" style="color:#8A6A9A;">Онлайн · Вся Россия</div>
         <h3>Интенсив «Расправь крылья»</h3>
         <p>Структурный путь к себе через движение — за 27 дней. Не «попробовать» — а пройти по-настоящему. Видеопрактики, живые встречи, личная обратная связь Дарьи. Онлайн — по всей России.</p>
+        <button class="card-reviews-toggle" data-card-id="intensive" aria-expanded="false">
+          <span class="toggle-arrow">▾</span>
+          <span>Что говорят участницы</span>
+        </button>
+        <div class="card-reviews-panel" id="panel-intensive">
+          <div class="card-mini-review active">
+            <div class="card-mini-text"><span>В первую очередь разгрузилась голова! Медитация творит чудеса, не помню когда так быстро могла уснуть. Прилив сил действительно ощутим. Даже какой-то всемогущей себя чувствую — могу решать проблемы, могу управлять своим настроением, могу менять свою жизнь. Даша, спасибо за такую возможность поверить в себя ❤️</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🦋</div>
+              <div>
+                <div class="card-mini-name">Алёна Т.</div>
+                <div class="card-mini-role">интенсив «Расправь крылья»</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>У меня стали внедряться привычки! Появилась уверенность, что в этот раз всё получится. Активно расхламляюсь и структурирую то, что имею. Мы ждём энергию, а она просто ждёт нас — вернее, когда для неё освободится хоть немного места в нашей жизни 😇</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">✨</div>
+              <div>
+                <div class="card-mini-name">Алёна Т.</div>
+                <div class="card-mini-role">интенсив «Расправь крылья»</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Для меня этот интенсив стал пинком, чего и требовалось. Здесь чётко давалось задание и сроки — это дисциплинирует. Поняла, что двигалась в правильном направлении: сначала избавиться от всего что мешает, потом уже прививать новые привычки. Вектор задан.</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌿</div>
+              <div>
+                <div class="card-mini-name">Анна</div>
+                <div class="card-mini-role">интенсив «Расправь крылья»</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Очень интересный и ёмкий интенсив, много полезной информации и практик. Сегодня начала питание по системе 16/8 и ещё подружку подтянула 😁 Развития твоему проекту, трудолюбивых участников, желающих заниматься саморазвитием и познанием себя 😘</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">🌸</div>
+              <div>
+                <div class="card-mini-name">Оля Б.</div>
+                <div class="card-mini-role">интенсив «Расправь крылья»</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-mini-review">
+            <div class="card-mini-text"><span>Ты огромная молодец, потому что делать такой практикум непросто. У тебя понравилась подача, твоя манера рассказывать материал, твоя полная отдача нам — всё видно, насколько вложена твоя душа в этот курс 👍</span></div>
+            <div class="card-mini-author">
+              <div class="card-mini-avatar">💜</div>
+              <div>
+                <div class="card-mini-name">Любаша</div>
+                <div class="card-mini-role">интенсив «Расправь крылья»</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-reviews-nav">
+            <button class="card-mini-arrow" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <span class="card-mini-counter">1 / 5</span>
+            <button class="card-mini-arrow" aria-label="Вперёд"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1245,7 +1565,7 @@
           <div class="review-author">
             <div class="review-avatar">🦋</div>
             <div>
-              <div class="review-name">Алёна Трескова</div>
+              <div class="review-name">Алёна Т.</div>
               <div class="review-role">интенсив «Расправь крылья»</div>
             </div>
           </div>
@@ -1258,7 +1578,7 @@
           <div class="review-author">
             <div class="review-avatar">✨</div>
             <div>
-              <div class="review-name">Алёна Трескова</div>
+              <div class="review-name">Алёна Т.</div>
               <div class="review-role">интенсив «Расправь крылья»</div>
             </div>
           </div>
@@ -1284,7 +1604,7 @@
           <div class="review-author">
             <div class="review-avatar">🌸</div>
             <div>
-              <div class="review-name">Оля Баяндина</div>
+              <div class="review-name">Оля Б.</div>
               <div class="review-role">интенсив «Расправь крылья»</div>
             </div>
           </div>
@@ -1457,6 +1777,47 @@
   window.addEventListener('resize', function() { render(); });
 
   render();
+})();
+
+// ===== МИНИ-КАРУСЕЛИ В КАРТОЧКАХ =====
+(function() {
+  // Открыть / закрыть панель
+  document.querySelectorAll('.card-reviews-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var cardId = btn.getAttribute('data-card-id');
+      var panel = document.getElementById('panel-' + cardId);
+      var isOpen = btn.classList.contains('open');
+      btn.classList.toggle('open');
+      panel.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  // Навигация внутри каждой панели
+  document.querySelectorAll('.card-reviews-panel').forEach(function(panel) {
+    var reviews = Array.from(panel.querySelectorAll('.card-mini-review'));
+    var counter = panel.querySelector('.card-mini-counter');
+    var arrows = Array.from(panel.querySelectorAll('.card-mini-arrow'));
+    var current = 0;
+    var total = reviews.length;
+
+    function showReview(idx) {
+      reviews.forEach(function(r) { r.classList.remove('active'); });
+      reviews[idx].classList.add('active');
+      if (counter) counter.textContent = (idx + 1) + ' / ' + total;
+    }
+
+    if (arrows.length >= 2) {
+      arrows[0].addEventListener('click', function() {
+        current = (current - 1 + total) % total;
+        showReview(current);
+      });
+      arrows[1].addEventListener('click', function() {
+        current = (current + 1) % total;
+        showReview(current);
+      });
+    }
+  });
 })();
 </script>
 </body>
